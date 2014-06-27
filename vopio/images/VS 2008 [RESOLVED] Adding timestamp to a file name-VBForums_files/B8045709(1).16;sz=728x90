@@ -1,0 +1,109 @@
+if (!window.mraid) {document.write('\x3cdiv class="GoogleActiveViewClass" ' +'id="DfaVisibilityIdentifier_1459595919390822108"\x3e');}document.write('\x3c!-- Copyright 2008 DoubleClick, a division of Google Inc. All rights reserved. --\x3e\n\x3c!-- Code auto-generated on Tue Jun 17 10:34:33 EDT 2014 --\x3e\n\x3cscript src\x3d\x22https://s0.doubleclick.net/879366/flashwrite_1_2.js\x22\x3e\x3c/script\x3e\n');function DCFlash(id,pVM){
+var swf = "https://s0.doubleclick.net/3756078/1-Sprint_Q2_BizIL_200VISA_UnlimitedData_Generic_728x90.swf";
+var gif = "https://s0.doubleclick.net/3756078/2-Sprint_Q2_BizIL_200VISA_UnlimitedData_Generic_728x90.jpg";
+var minV = 9;
+var FWH = ' width="728" height="90" ';
+var url = escape("https://adclick.g.doubleclick.net/aclk?sa=L&ai=BU_2x-BirU-KHCcyl-wbe0IHQBgAAAAAQASAAOABQ4JGeDVi-l_AbYMnugYjwo-wSggEJY2EtZ29vZ2xlyAEJqAMB4AQCmgUZCO6tThCm3oA0GOCc0YYBIL6X8BsorqDlAdoFAggBoAYf4AauoOUB&num=0&sig=AOD64_3lITCyXOuYoJotUQ16cH8xP5opcA&client=&adurl=http://insight.adsrvr.org/track/clk%3Fttd_r%3D%26imp%3D988219fc-9b49-47f7-a0ab-a04387a73f08%26ag%3D1jcdg5r%26crid%3Dyx9lka2y%26fq%3D0%26td_s%3Dwww.vbforums.com%26rcats%3Djba,twb%26mcat%3D%26mste%3Dvbforums.com%26mfld%3D4%26mssi%3D5txzbl33%26mfsi%3D0v7q6g4%26sv%3Dappnexus%26uhow%3D85%26agsa%3D0x449EB5C1%26rgco%3DUnited%2520States%26rgre%3DMichigan%26rgme%3D505%26rgci%3DDetroit%26dt%3DPC%26osf%3DWindows%26os%3DWindows7%26br%3DChrome%26svpid%3D232%26rlangs%3Den%26mlang%3D%26did%3D%26dur%3DCowBCgc0bG0zaGVhEMgKIg4IopSZARIHemRrYm5raSIOCMmsmQESB3pka2Jua2kiDgi8wZkBEgd6ZGtibmtpIg4IsdCZARIHemRrYm5raSIOCNvkmQESB3pka2Jua2kiDgjI8JkBEgd6ZGtibmtpIg4I2PqZARIHemRrYm5raSIOCJu9mgESB3pka2Jua2kK5gIKB29ra2thdHoQ%252BAkiDgijlJkBEgd6ZGtibmtpIg4Is5mZARIHemRrYm5raSIOCLSZmQESB3pka2Jua2kiDgiXppkBEgd6ZGtibmtpIg4ImqaZARIHemRrYm5raSIOCPymmQESB3pka2Jua2kiDgjJrJkBEgd6ZGtibmtpIg4I9ayZARIHemRrYm5raSIOCNm4mQESB3pka2Jua2kiDgjbx5kBEgd6ZGtibmtpIg4IoNCZARIHemRrYm5raSIOCLLQmQESB3pka2Jua2kiDgi80JkBEgd6ZGtibmtpIg4I6OCZARIHemRrYm5raSIOCPrjmQESB3pka2Jua2kiDgjJ8JkBEgd6ZGtibmtpIg4IzvCZARIHemRrYm5raSIOCOeBmgESB3pka2Jua2kiDgjqjZoBEgd6ZGtibmtpIhMI1ZzRMxIMdGhldHJhZGVkZXNrIhMI2JzRMxIMdGhldHJhZGVkZXNrEPgJ%26r%3Dhttps://d.agkn.com/pixel/2632/%3Fche%3D4171400090%26col%3D8045709,1283822,109063974,282349152,58461118%26l1%3Dhttp%253A%252F%252Fnow%252Esprint%252Ecom%252Fsave%252Fhealthcare%253FECID%253DMA%253AAB%253A20140602%253A2014%255FQ2%255FSprint%255FBizIL%253ASprintB%255FS%255FTradeDesk%255FDSK%255FBAN%255FCPM%255F728x90%255FDisplay%252DLookalike%252DHealthcare%255FDC%253ASprint%255FQ2%255FBizIL%255F200VISA%255FUnlimitedData%255FGeneric%255F728x90%252Eswf");
+var fscUrl = url;
+var fscUrlClickTagFound = false;
+var wmode = "opaque";
+var bg = "";
+var dcallowscriptaccess = "never";
+
+var openWindow = "false";
+var winW = 0;
+var winH = 0;
+var winL = 0;
+var winT = 0;
+
+var moviePath=swf.substring(0,swf.lastIndexOf("/"));
+var sm=new Array();
+
+
+var defaultCtVal = escape("https://adclick.g.doubleclick.net/aclk?sa=L&ai=BU_2x-BirU-KHCcyl-wbe0IHQBgAAAAAQASAAOABQ4JGeDVi-l_AbYMnugYjwo-wSggEJY2EtZ29vZ2xlyAEJqAMB4AQCmgUZCO6tThCm3oA0GOCc0YYBIL6X8BsorqDlAdoFAggBoAYf4AauoOUB&num=0&sig=AOD64_3lITCyXOuYoJotUQ16cH8xP5opcA&client=&adurl=http://insight.adsrvr.org/track/clk%3Fttd_r%3D%26imp%3D988219fc-9b49-47f7-a0ab-a04387a73f08%26ag%3D1jcdg5r%26crid%3Dyx9lka2y%26fq%3D0%26td_s%3Dwww.vbforums.com%26rcats%3Djba,twb%26mcat%3D%26mste%3Dvbforums.com%26mfld%3D4%26mssi%3D5txzbl33%26mfsi%3D0v7q6g4%26sv%3Dappnexus%26uhow%3D85%26agsa%3D0x449EB5C1%26rgco%3DUnited%2520States%26rgre%3DMichigan%26rgme%3D505%26rgci%3DDetroit%26dt%3DPC%26osf%3DWindows%26os%3DWindows7%26br%3DChrome%26svpid%3D232%26rlangs%3Den%26mlang%3D%26did%3D%26dur%3DCowBCgc0bG0zaGVhEMgKIg4IopSZARIHemRrYm5raSIOCMmsmQESB3pka2Jua2kiDgi8wZkBEgd6ZGtibmtpIg4IsdCZARIHemRrYm5raSIOCNvkmQESB3pka2Jua2kiDgjI8JkBEgd6ZGtibmtpIg4I2PqZARIHemRrYm5raSIOCJu9mgESB3pka2Jua2kK5gIKB29ra2thdHoQ%252BAkiDgijlJkBEgd6ZGtibmtpIg4Is5mZARIHemRrYm5raSIOCLSZmQESB3pka2Jua2kiDgiXppkBEgd6ZGtibmtpIg4ImqaZARIHemRrYm5raSIOCPymmQESB3pka2Jua2kiDgjJrJkBEgd6ZGtibmtpIg4I9ayZARIHemRrYm5raSIOCNm4mQESB3pka2Jua2kiDgjbx5kBEgd6ZGtibmtpIg4IoNCZARIHemRrYm5raSIOCLLQmQESB3pka2Jua2kiDgi80JkBEgd6ZGtibmtpIg4I6OCZARIHemRrYm5raSIOCPrjmQESB3pka2Jua2kiDgjJ8JkBEgd6ZGtibmtpIg4IzvCZARIHemRrYm5raSIOCOeBmgESB3pka2Jua2kiDgjqjZoBEgd6ZGtibmtpIhMI1ZzRMxIMdGhldHJhZGVkZXNrIhMI2JzRMxIMdGhldHJhZGVkZXNrEPgJ%26r%3Dhttps://d.agkn.com/pixel/2632/%3Fche%3D4171400090%26col%3D8045709,1283822,109063974,282349152,58461118%26l1%3Dhttp%253A%252F%252Fnow%252Esprint%252Ecom%252Fsave%252Fhealthcare%253FECID%253DMA%253AAB%253A20140602%253A2014%255FQ2%255FSprint%255FBizIL%253ASprintB%255FS%255FTradeDesk%255FDSK%255FBAN%255FCPM%255F728x90%255FDisplay%252DLookalike%252DHealthcare%255FDC%253ASprint%255FQ2%255FBizIL%255F200VISA%255FUnlimitedData%255FGeneric%255F728x90%252Eswf");
+var ctp=new Array();
+var ctv=new Array();
+ctp[0] = "clickTag";
+ctv[0] = "";
+
+
+var fv='"moviePath='+moviePath+'/'+'&moviepath='+moviePath+'/';
+for(i=1;i<sm.length;i++){if(sm[i]!=""){fv+="&submovie"+i+"="+escape(sm[i]);}}
+for(var ctIndex = 0; ctIndex < ctp.length; ctIndex++) {
+  var ctParam = ctp[ctIndex];
+  var ctVal = ctv[ctIndex];
+  if(ctVal != null && typeof(ctVal) == 'string') {
+    if(ctVal == "") {
+      ctVal = defaultCtVal;
+    }
+    else {
+      ctVal = escape("https://adclick.g.doubleclick.net/aclk?sa=L&ai=BU_2x-BirU-KHCcyl-wbe0IHQBgAAAAAQASAAOABQ4JGeDVi-l_AbYMnugYjwo-wSggEJY2EtZ29vZ2xlyAEJqAMB4AQCmgUZCO6tThCm3oA0GOCc0YYBIL6X8BsorqDlAdoFAggBoAYf4AauoOUB&num=0&sig=AOD64_3lITCyXOuYoJotUQ16cH8xP5opcA&client=&adurl=http://insight.adsrvr.org/track/clk%3Fttd_r%3D%26imp%3D988219fc-9b49-47f7-a0ab-a04387a73f08%26ag%3D1jcdg5r%26crid%3Dyx9lka2y%26fq%3D0%26td_s%3Dwww.vbforums.com%26rcats%3Djba,twb%26mcat%3D%26mste%3Dvbforums.com%26mfld%3D4%26mssi%3D5txzbl33%26mfsi%3D0v7q6g4%26sv%3Dappnexus%26uhow%3D85%26agsa%3D0x449EB5C1%26rgco%3DUnited%2520States%26rgre%3DMichigan%26rgme%3D505%26rgci%3DDetroit%26dt%3DPC%26osf%3DWindows%26os%3DWindows7%26br%3DChrome%26svpid%3D232%26rlangs%3Den%26mlang%3D%26did%3D%26dur%3DCowBCgc0bG0zaGVhEMgKIg4IopSZARIHemRrYm5raSIOCMmsmQESB3pka2Jua2kiDgi8wZkBEgd6ZGtibmtpIg4IsdCZARIHemRrYm5raSIOCNvkmQESB3pka2Jua2kiDgjI8JkBEgd6ZGtibmtpIg4I2PqZARIHemRrYm5raSIOCJu9mgESB3pka2Jua2kK5gIKB29ra2thdHoQ%252BAkiDgijlJkBEgd6ZGtibmtpIg4Is5mZARIHemRrYm5raSIOCLSZmQESB3pka2Jua2kiDgiXppkBEgd6ZGtibmtpIg4ImqaZARIHemRrYm5raSIOCPymmQESB3pka2Jua2kiDgjJrJkBEgd6ZGtibmtpIg4I9ayZARIHemRrYm5raSIOCNm4mQESB3pka2Jua2kiDgjbx5kBEgd6ZGtibmtpIg4IoNCZARIHemRrYm5raSIOCLLQmQESB3pka2Jua2kiDgi80JkBEgd6ZGtibmtpIg4I6OCZARIHemRrYm5raSIOCPrjmQESB3pka2Jua2kiDgjJ8JkBEgd6ZGtibmtpIg4IzvCZARIHemRrYm5raSIOCOeBmgESB3pka2Jua2kiDgjqjZoBEgd6ZGtibmtpIhMI1ZzRMxIMdGhldHJhZGVkZXNrIhMI2JzRMxIMdGhldHJhZGVkZXNrEPgJ%26r%3D" + ctVal);
+    }
+    if(ctParam.toLowerCase() == "clicktag") {
+      fscUrl = ctVal;
+      fscUrlClickTagFound = true;
+    }
+    else if(!fscUrlClickTagFound) {
+      fscUrl = ctVal;
+    }
+    fv += "&" + ctParam + "=" + ctVal;
+  }
+}
+fv+='"';
+var bgo=(bg=="")?"":'<param name="bgcolor" value="#'+bg+'">';
+var bge=(bg=="")?"":' bgcolor="#'+bg+'"';
+function FSWin(){if((openWindow=="false")&&(id=="DCF0"))alert('openWindow is wrong.');
+var dcw = 800;
+var dch = 600;
+// IE
+if(!window.innerWidth)
+{
+  // strict mode
+  if(!(document.documentElement.clientWidth == 0))
+  {
+    dcw = document.documentElement.clientWidth;
+    dch = document.documentElement.clientHeight;
+  }
+  // quirks mode
+  else if(document.body)
+  {
+    dcw = document.body.clientWidth;
+    dch = document.body.clientHeight;
+  }
+}
+// w3c
+else
+{
+  dcw = window.innerWidth;
+  dch = window.innerHeight;
+}
+if(openWindow=="center"){winL=Math.floor((dcw-winW)/2);winT=Math.floor((dch-winH)/2);}window.open(unescape(fscUrl),id,"width="+winW+",height="+winH+",top="+winT+",left="+winL+",status=no,toolbar=no,menubar=no,location=no");}this.FSWin = FSWin;
+ua=navigator.userAgent;
+if(minV<=pVM&&(openWindow=="false"||(ua.indexOf("Mac")<0&&ua.indexOf("Opera")<0))){
+  var adcode='<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" id="'+id+'"'+FWH+'>'+
+    '<param name="movie" value="'+swf+'"><param name="flashvars" value='+fv+'><param name="quality" value="high"><param name="wmode" value="'+wmode+'"><param name="base" value="'+swf.substring(0,swf.lastIndexOf("/"))+'"><PARAM NAME="AllowScriptAccess" VALUE="'+dcallowscriptaccess+'">'+bgo+
+    '<embed src="'+swf+'" flashvars='+fv+bge+FWH+' type="application/x-shockwave-flash" quality="high" swliveconnect="true" wmode="'+wmode+'" name="'+id+'" base="'+swf.substring(0,swf.lastIndexOf("/"))+'" AllowScriptAccess="'+dcallowscriptaccess+'"></embed></object>';
+  if(('j'!="j")&&(typeof dclkFlashWrite!="undefined")){dclkFlashWrite(adcode);}else{document.write(adcode);}
+}else{
+  document.write('<a target="_blank" href="'+unescape(url)+'"><img src="'+gif+'"'+FWH+'border="0" alt="Advertisement" galleryimg="no"></a>');
+}}
+function getFlashVersion(){
+// code derived from SWFObject (http://code.google.com/p/swfobject/)
+ var vfv = "0,0,0";
+  try {
+ try {
+   var axo = new ActiveXObject("ShockwaveFlash.ShockwaveFlash.6");
+     try {axo.AllowScriptAccess = "always"; }catch(e) {return "6";}
+  }catch(e) {}
+ vfv = new ActiveXObject("ShockwaveFlash.ShockwaveFlash").GetVariable("$version");}
+ catch(e) {
+   try {if(navigator.mimeTypes["application/x-shockwave-flash"].enabledPlugin){vfv= navigator.plugins["Shockwave Flash"].description;}}
+   catch(e) {}
+}
+ return vfv.replace(/\D+/g, ",").match(/^,?(.+),?$/)[1].split(',').shift();
+}
+var DCid=(isNaN("282349152"))?"DCF2":"DCF282349152";
+var pVM=getFlashVersion();
+eval("function "+DCid+"_DoFSCommand(c,a){if(c=='openWindow')o"+DCid+".FSWin();}o"+DCid+"=new DCFlash('"+DCid+"',pVM);");
+//-->
+document.write('\n\x3cnoscript\x3e\x3ca target\x3d\x22_blank\x22 href\x3d\x22https://adclick.g.doubleclick.net/aclk?sa\x3dL\x26ai\x3dBU_2x-BirU-KHCcyl-wbe0IHQBgAAAAAQASAAOABQ4JGeDVi-l_AbYMnugYjwo-wSggEJY2EtZ29vZ2xlyAEJqAMB4AQCmgUZCO6tThCm3oA0GOCc0YYBIL6X8BsorqDlAdoFAggBoAYf4AauoOUB\x26num\x3d0\x26sig\x3dAOD64_3lITCyXOuYoJotUQ16cH8xP5opcA\x26client\x3d\x26adurl\x3dhttp://insight.adsrvr.org/track/clk%3Fttd_r%3D%26imp%3D988219fc-9b49-47f7-a0ab-a04387a73f08%26ag%3D1jcdg5r%26crid%3Dyx9lka2y%26fq%3D0%26td_s%3Dwww.vbforums.com%26rcats%3Djba,twb%26mcat%3D%26mste%3Dvbforums.com%26mfld%3D4%26mssi%3D5txzbl33%26mfsi%3D0v7q6g4%26sv%3Dappnexus%26uhow%3D85%26agsa%3D0x449EB5C1%26rgco%3DUnited%2520States%26rgre%3DMichigan%26rgme%3D505%26rgci%3DDetroit%26dt%3DPC%26osf%3DWindows%26os%3DWindows7%26br%3DChrome%26svpid%3D232%26rlangs%3Den%26mlang%3D%26did%3D%26dur%3DCowBCgc0bG0zaGVhEMgKIg4IopSZARIHemRrYm5raSIOCMmsmQESB3pka2Jua2kiDgi8wZkBEgd6ZGtibmtpIg4IsdCZARIHemRrYm5raSIOCNvkmQESB3pka2Jua2kiDgjI8JkBEgd6ZGtibmtpIg4I2PqZARIHemRrYm5raSIOCJu9mgESB3pka2Jua2kK5gIKB29ra2thdHoQ%252BAkiDgijlJkBEgd6ZGtibmtpIg4Is5mZARIHemRrYm5raSIOCLSZmQESB3pka2Jua2kiDgiXppkBEgd6ZGtibmtpIg4ImqaZARIHemRrYm5raSIOCPymmQESB3pka2Jua2kiDgjJrJkBEgd6ZGtibmtpIg4I9ayZARIHemRrYm5raSIOCNm4mQESB3pka2Jua2kiDgjbx5kBEgd6ZGtibmtpIg4IoNCZARIHemRrYm5raSIOCLLQmQESB3pka2Jua2kiDgi80JkBEgd6ZGtibmtpIg4I6OCZARIHemRrYm5raSIOCPrjmQESB3pka2Jua2kiDgjJ8JkBEgd6ZGtibmtpIg4IzvCZARIHemRrYm5raSIOCOeBmgESB3pka2Jua2kiDgjqjZoBEgd6ZGtibmtpIhMI1ZzRMxIMdGhldHJhZGVkZXNrIhMI2JzRMxIMdGhldHJhZGVkZXNrEPgJ%26r%3Dhttps://d.agkn.com/pixel/2632/%3Fche%3D4171400090%26col%3D8045709,1283822,109063974,282349152,58461118%26l1%3Dhttp%253A%252F%252Fnow%252Esprint%252Ecom%252Fsave%252Fhealthcare%253FECID%253DMA%253AAB%253A20140602%253A2014%255FQ2%255FSprint%255FBizIL%253ASprintB%255FS%255FTradeDesk%255FDSK%255FBAN%255FCPM%255F728x90%255FDisplay%252DLookalike%252DHealthcare%255FDC%253ASprint%255FQ2%255FBizIL%255F200VISA%255FUnlimitedData%255FGeneric%255F728x90%252Eswf\x22\x3e\x3cimg src\x3d\x22https://s0.doubleclick.net/3756078/2-Sprint_Q2_BizIL_200VISA_UnlimitedData_Generic_728x90.jpg\x22 width\x3d\x22728\x22 height\x3d\x2290\x22 border\x3d\x220\x22 alt\x3d\x22Advertisement\x22 galleryimg\x3d\x22no\x22\x3e\x3c/a\x3e\x3c/noscript\x3e\n\n\n\x3ciframe width\x3d\x221\x22 height\x3d\x221\x22 frameborder\x3d\x220\x22 src\x3d\x22https://d.agkn.com/pixel/2631/?ct\x3dUS\x26st\x3dIL\x26city\x3d15609\x26dma\x3d87\x26zp\x3d60016\x26bw\x3d3\x26che\x3d4171400090\x26col\x3d8045709,1283822,109063974,282349152,58461118\x22\x3e\x3c/iframe\x3e\n\n\x3cscript src\x3d\x22https://sb.voicefive.com/c2/14617400/rs.js#c1\x3d3\x26amp;c3\x3d8045709\x26amp;c4\x3d58461118\x26amp;c5\x3d109063974\x26amp;c6\x3d\x26amp;c10\x3d1\x26amp;c11\x3d1283822\x26amp;c12\x3dp256753801\x26amp;c13\x3d728x90\x26amp;c16\x3ddfa\x26amp;ax_i\x3d\x26amp;ax_g\x3d\x26amp;\x22\x3e\x3c/script\x3e');if (!window.mraid) {(function() {document.write('\x3c/div\x3e');var avDiv = document.getElementById("DfaVisibilityIdentifier_1459595919390822108");if (avDiv) {avDiv['_avi_'] = 'Br9ek-BirU-KHCcyl-wbe0IHQBgAAAAAQATgByAEJ4AQCoAYf';avDiv['_avihost_'] = 'pagead2.googlesyndication.com';}var glidar = document.createElement('script');glidar.type = 'text/javascript';glidar.async = true;glidar.src = '//pagead2.googlesyndication.com/pagead/js/lidar.js';var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(glidar, s);})();}

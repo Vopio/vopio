@@ -1,0 +1,1032 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0102)http://ellismis.com/2012/03/17/converting-or-transcribing-audio-to-text-using-c-and-net-system-speech/ -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" class=" js cssanimations csstransitions"><!--BEGIN head--><head profile="http://purl.org/uF/hAtom/0.1/ http://purl.org/uF/2008/03/"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<title>Converting or Transcribing audio to text using C# and .NET System.Speech | Michael Ellis - ellismis.com</title>
+
+	<!-- Meta Tags -->
+	
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="alternate" type="application/rss+xml" title="Michael Ellis - ellismis.com » Feed" href="http://ellismis.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Michael Ellis - ellismis.com » Comments Feed" href="http://ellismis.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Michael Ellis - ellismis.com » Converting or Transcribing audio to text using C# and .NET System.Speech Comments Feed" href="http://ellismis.com/2012/03/17/converting-or-transcribing-audio-to-text-using-c-and-net-system-speech/feed/">
+<link rel="stylesheet" id="parallaxcss-css" href="./Converting or Transcribing audio to text using C# and .NET System.Speech   Michael Ellis - ellismis.com_files/parallax.css" type="text/css" media="all">
+<link rel="stylesheet" id="googlefont-css" href="./Converting or Transcribing audio to text using C# and .NET System.Speech   Michael Ellis - ellismis.com_files/css" type="text/css" media="all">
+<link rel="stylesheet" id="fontawesomecss-css" href="./Converting or Transcribing audio to text using C# and .NET System.Speech   Michael Ellis - ellismis.com_files/font-awesome.css" type="text/css" media="all">
+<link rel="stylesheet" id="maincss-css" href="./Converting or Transcribing audio to text using C# and .NET System.Speech   Michael Ellis - ellismis.com_files/style.css" type="text/css" media="all">
+<style type="text/css">
+ 
+  @media (min-width: 1005px) {
+  .container, #wrapper {
+    width: 985px!important;
+  }
+} 
+ @media only screen and (min-width: 768px){
+ .link-effect a:hover span,
+.link-effect a:focus span {
+	-webkit-transform: translateY(-100%);
+	-moz-transform: translateY(-100%);
+	transform: translateY(-100%);
+} }
+
+.entry-content .thumbnail-post:hover img {
+   -webkit-transform: scale(1.1,1.1);
+   -moz-transform: scale(1.1,1.1);
+   -o-transform: scale(1.1,1.1);
+   -ms-transform: scale(1.1,1.1);
+   transform: scale(1.1,1.1);
+}
+.entry-content .thumbnail-post:hover .mask {
+   -ms-filter: "progid: DXImageTransform.Microsoft.Alpha(Opacity=100)";
+   filter: alpha(opacity=100);
+   opacity: 1;
+}
+.entry-content .thumbnail-post:hover div.icon {
+   -ms-filter: "progid: DXImageTransform.Microsoft.Alpha(Opacity=100)";
+   filter: alpha(opacity=100);
+   opacity: 1;
+   top:50%;
+   margin-top:-21px;
+   -webkit-transition-delay: 0.1s;
+   -moz-transition-delay: 0.1s;
+   -o-transition-delay: 0.1s;
+   -ms-transition-delay: 0.1s;
+   transition-delay: 0.1s;
+}
+
+
+/**
+ * 1 column (content) fixed layout
+ * 
+ * @package WPEvoLve
+ * @subpackage Layouts
+ * @beta
+ */
+
+
+.header, .footer {background-image:url(http://ellismis.com/wp-content/themes/evolve/library/media/images/pattern/pattern_8.png);}
+.menu-back {
+ background-color:#95ccca; 
+ background: -webkit-gradient(radial, center center, 0, center center, 460, from(#95ccca), to(#597a79));  
+ background: -webkit-radial-gradient(circle, #95ccca, #597a79);  
+ background: -moz-radial-gradient(circle, #95ccca, #597a79);  
+ background: -o-radial-gradient(circle, #95ccca, #597a79);
+ background: -ms-radial-gradient(circle, #95ccca, #597a79);
+}
+.da-dots span {background:#688f8d}
+/**
+ * Posts Layout
+ * 
+ */   
+
+   
+.home .type-post .entry-content, .archive .type-post .entry-content, .search .type-post .entry-content, .page-template-blog-page-php .type-post .entry-content {font-size:13px;}
+.entry-content {margin-top:25px;}
+.home .odd0, .archive .odd0, .search .odd0, .page-template-blog-page-php .odd0 {clear:both;}
+.home .odd1, .archive .odd1, .search .odd1, .page-template-blog-page-php .odd1{margin-right:0px;}
+.home .entry-title, .entry-title a, .archive .entry-title, .search .entry-title, .page-template-blog-page-php .entry-title {font-size:120%!important;line-height:120%!important;margin-bottom:0;}
+.home .entry-header, .archive .entry-header, .search .entry-header, .page-template-blog-page-php .entry-header {font-size:12px;padding:0;}
+.home .published strong, .archive .published strong,  .search .published strong, .page-template-blog-page-php .published strong{font-size:15px;line-height:15px;}
+.home .type-post .comment-count a, .archive .type-post .comment-count a, .search .type-post .comment-count a, .page-template-blog-page-php .type-post .comment-count a  {color:#bfbfbf;background:url(http://ellismis.com/wp-content/themes/evolve/library/media/images/comment.png) 0 9px no-repeat;text-decoration:none;position:relative;bottom:-9px;border:none;padding:8px 10px 8px 18px;}
+.home .hfeed, .archive .hfeed, .single .hfeed, .page .hfeed, .page-template-blog-page-php .hfeed {margin-right:0px;}
+.home .type-post .entry-footer, .archive .type-post .entry-footer, .search .type-post .entry-footer, .page-template-blog-page-php .type-post .entry-footer {float:left;width:100%}
+.home .type-post .comment-count, .archive .type-post .comment-count, .search .type-post .comment-count, .page-template-blog-page-php .type-post .comment-count {background:none!important;padding-right:0;}#logo, #logo a {font:normal 55px Raleway; color:;letter-spacing:-.03em;}#tagline {font:normal 13px Raleway; color:;}.entry-title, .entry-title a, .page-title {font:bold 28px Raleway; color:!important;}body, input, textarea, .entry-content {font:normal 16px Raleway!important; color:;line-height:1.5em;}
+  body {color:!important;}h1, h2, h3, h4, h5, h6 {font-family:Raleway!important; color:;}#wrapper {position:relative;margin:0 auto 30px auto !important;background:#f9f9f9;box-shadow:0 0 3px rgba(0,0,0,.2);}
+
+#wrapper:before {bottom: -34px;
+    background: url(http://ellismis.com/wp-content/themes/evolve/library/media/images/shadow.png) no-repeat scroll center top!important;
+    left: 0px;
+    position: absolute;
+    z-index: -1;
+    height: 7px;
+    bottom: -7px;
+    content: "";
+    width: 100%;
+}
+.widget-content {background: none!important;border: none!important;-webkit-box-shadow:none!important;-moz-box-shadow:none!important;-box-shadow:none!important;box-shadow:none!important;}
+.widget:after, .widgets-holder .widget:after {content:none!important;}
+.menu-header {filter:none;top:0;background: none!important;border: none!important;border-radius:0!important;-webkit-box-shadow:none!important;-moz-box-shadow:none!important;-box-shadow:none!important;box-shadow:none!important;}
+.menu-header:before, .menu-header:after {content:none!important;}
+ul.nav-menu li {border:none;}
+ul.nav-menu li.current-menu-item > a, ul.nav-menu li.current-menu-ancestor > a, ul.nav-menu li a:hover,ul.nav-menu li:hover > a {
+    background: none;box-shadow:none;}
+ul.nav-menu li.current-menu-item > a:after, ul.nav-menu li.current-menu-ancestor > a:after {content:none;}    
+    
+a, .entry-content a:link, .entry-content a:active, .entry-content a:visited, #secondary a:hover, #secondary-2 a:hover {color:#7a9cad;}#rss, #email-newsletter, #facebook, #twitter, #instagram, #skype, #youtube, #flickr, #linkedin, #plus { color: #999999;}#rss, #email-newsletter, #facebook, #twitter, #instagram, #skype, #youtube, #flickr, #linkedin, #plus { font-size: normal;}.menu-back { background-repeat:repeat;}/* Extra small devices (phones, <768px) */
+@media (max-width: 768px) { .da-slide h2 {font-size:120%;letter-spacing:1px; }
+#slide_holder .featured-title a {font-size:80%;letter-spacing:1px;} 
+.da-slide p, #slide_holder p {font-size:90%; }
+}
+
+/* Small devices (tablets, 768px) */
+@media (min-width: 768px) { .da-slide h2 {font-size:180%;letter-spacing:0; }
+#slide_holder .featured-title a {font-size:120%;letter-spacing:0; }
+.da-slide p, #slide_holder p {font-size:100%; }
+}
+
+
+/* Large devices (large desktops) */
+@media (min-width: 992px) { .da-slide h2 {font-size:;line-height:1em; } 
+#slide_holder .featured-title a {font-size:;line-height:1em;}
+.da-slide p {font-size:; }
+#slide_holder p {font-size:;}
+ }
+</style>
+<link rel="stylesheet" id="bootstrapcss-css" href="./Converting or Transcribing audio to text using C# and .NET System.Speech   Michael Ellis - ellismis.com_files/bootstrap.css" type="text/css" media="all">
+<link rel="stylesheet" id="bootstrapcsstheme-css" href="./Converting or Transcribing audio to text using C# and .NET System.Speech   Michael Ellis - ellismis.com_files/bootstrap-theme.css" type="text/css" media="all">
+<script type="text/javascript" async="" src="./Converting or Transcribing audio to text using C# and .NET System.Speech   Michael Ellis - ellismis.com_files/ga.js"></script><script type="text/javascript" src="./Converting or Transcribing audio to text using C# and .NET System.Speech   Michael Ellis - ellismis.com_files/jquery.js"></script>
+<script type="text/javascript" src="./Converting or Transcribing audio to text using C# and .NET System.Speech   Michael Ellis - ellismis.com_files/jquery-migrate.min.js"></script>
+<script type="text/javascript" src="./Converting or Transcribing audio to text using C# and .NET System.Speech   Michael Ellis - ellismis.com_files/parallax.js"></script>
+<script type="text/javascript" src="./Converting or Transcribing audio to text using C# and .NET System.Speech   Michael Ellis - ellismis.com_files/modernizr.js"></script>
+<script type="text/javascript" src="./Converting or Transcribing audio to text using C# and .NET System.Speech   Michael Ellis - ellismis.com_files/carousel.js"></script>
+<script type="text/javascript" src="./Converting or Transcribing audio to text using C# and .NET System.Speech   Michael Ellis - ellismis.com_files/tipsy.js"></script>
+<script type="text/javascript" src="./Converting or Transcribing audio to text using C# and .NET System.Speech   Michael Ellis - ellismis.com_files/fields.js"></script>
+<script type="text/javascript" src="./Converting or Transcribing audio to text using C# and .NET System.Speech   Michael Ellis - ellismis.com_files/supersubs.js"></script>
+<script type="text/javascript" src="./Converting or Transcribing audio to text using C# and .NET System.Speech   Michael Ellis - ellismis.com_files/superfish.js"></script>
+<script type="text/javascript" src="./Converting or Transcribing audio to text using C# and .NET System.Speech   Michael Ellis - ellismis.com_files/hoverIntent.js"></script>
+<script type="text/javascript" src="./Converting or Transcribing audio to text using C# and .NET System.Speech   Michael Ellis - ellismis.com_files/buttons.js"></script>
+<script type="text/javascript" src="./Converting or Transcribing audio to text using C# and .NET System.Speech   Michael Ellis - ellismis.com_files/ddslick.js"></script><style id="css-ddslick" type="text/css">.dd-select{ border-radius:2px; border:solid 1px #ccc; position:relative; cursor:pointer;}.dd-desc { color:#aaa; display:block; overflow: hidden; font-weight:normal; line-height: 1.4em; }.dd-selected{ overflow:hidden; display:block; padding:10px; font-weight:bold;}.dd-pointer{ width:0; height:0; position:absolute; right:10px; top:50%; margin-top:-3px;}.dd-pointer-down{ border:solid 5px transparent; border-top:solid 5px #000; }.dd-pointer-up{border:solid 5px transparent !important; border-bottom:solid 5px #000 !important; margin-top:-8px;}.dd-options{ border:solid 1px #ccc; border-top:none; list-style:none; box-shadow:0px 1px 5px #ddd; display:none; position:absolute; z-index:2000; margin:0; padding:0;background:#fff; overflow:auto;}.dd-option{ padding:10px; display:block; border-bottom:solid 1px #ddd; overflow:hidden; text-decoration:none; color:#333; cursor:pointer;-webkit-transition: all 0.25s ease-in-out; -moz-transition: all 0.25s ease-in-out;-o-transition: all 0.25s ease-in-out;-ms-transition: all 0.25s ease-in-out; }.dd-options > li:last-child > .dd-option{ border-bottom:none;}.dd-option:hover{ background:#f3f3f3; color:#000;}.dd-selected-description-truncated { text-overflow: ellipsis; white-space:nowrap; }.dd-option-selected { background:#f6f6f6; }.dd-option-image, .dd-selected-image { vertical-align:middle; float:left; margin-right:5px; max-width:64px;}.dd-image-right { float:right; margin-right:15px; margin-left:5px;}.dd-container{ position:relative;}​ .dd-selected-text { font-weight:bold}​</style>
+<script type="text/javascript" src="./Converting or Transcribing audio to text using C# and .NET System.Speech   Michael Ellis - ellismis.com_files/bootstrap.js"></script>
+<script type="text/javascript" src="./Converting or Transcribing audio to text using C# and .NET System.Speech   Michael Ellis - ellismis.com_files/comment-reply.min.js"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://ellismis.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://ellismis.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Converting Embedded Powerpoint Audio to .mp3" href="http://ellismis.com/2012/01/16/converting-powerpoint-audio-to-mp3/">
+<meta name="generator" content="WordPress 3.8.3">
+<link rel="shortlink" href="http://ellismis.com/?p=77">
+
+<!-- All in One SEO Pack 2.1.4 by Michael Torbert of Semper Fi Web Design[304,420] -->
+<meta name="description" content="Converting or Transcribing audio to text using C# and .NET System.Speech full example and description">
+
+<meta name="keywords" content="converting transcribing audio to text c# .net system.speech">
+
+<link rel="canonical" href="./Converting or Transcribing audio to text using C# and .NET System.Speech   Michael Ellis - ellismis.com_files/Converting or Transcribing audio to text using C# and .NET System.Speech   Michael Ellis - ellismis.com.htm">
+		<script type="text/javascript">
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-9424919-1']);
+		  _gaq.push(['_trackPageview']);
+		  (function() {
+		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+		</script>
+<!-- /all in one seo pack -->
+<style type="text/css" id="custom-background-css">
+body.custom-background { background-image: url('http://ellismis.com/wp-content/themes/evolve/library/media/images/default-bg.jpg'); background-repeat: repeat; background-position: top left; background-attachment: scroll; }
+</style>
+     
+ 
+<!--END head-->  
+</head>
+
+
+
+<!--BEGIN body-->
+<body class="single single-post postid-77 single-format-standard custom-background">
+
+<div id="wrapper">
+
+<div id="top"></div>
+
+
+
+
+
+	<!--BEGIN .header-->
+		<div class="header">
+    
+    
+	<!--BEGIN .container-->
+	<div class="container container-header custom-header">
+  
+  
+    
+      <!--BEGIN #righttopcolumn-->  
+  <div id="righttopcolumn"> 
+                       
+   <!--BEGIN #subscribe-follow-->
+ 
+<div id="social">
+   
+
+<ul class="sc_menu">
+
+<li><a target="_blank" href="http://ellismis.com/feed/rss/" class="tipsytext" id="rss" original-title="RSS Feed"><i class="fa fa-rss"></i></a></li>
+
+
+<li><a target="_blank" href="http://facebook.com/pages/Theme4Press/100642700004832" class="tipsytext" id="facebook" original-title="Facebook"><i class="fa fa-facebook"></i></a></li>
+<li><a target="_blank" href="http://twitter.com/theme4press" class="tipsytext" id="twitter" original-title="Twitter"><i class="fa fa-twitter"></i></a></li>
+
+
+
+
+
+
+</ul></div> 
+
+<!--END #subscribe-follow--> 
+       
+</div> 
+  <!--END #righttopcolumn-->
+  
+   
+   
+      
+     
+      
+     
+     
+           
+     
+          
+     <div id="logo"><a href="http://ellismis.com/">Michael Ellis – ellismis.com</a></div>
+     
+          
+     <div id="tagline"></div>
+	<!--END .container-->
+		</div>
+    
+    
+
+    
+    		<!--END .header-->
+		</div>
+    
+    
+    
+  
+  <div class="menu-container">
+  
+  
+  
+        
+  
+  <div class="menu-header">  
+  
+  <!--BEGIN .container-menu-->
+  <div class="container nacked-menu container-menu">
+
+        
+   <div class="primary-menu">   
+ <nav id="nav" class="nav-holder"><div class="nav-menu"><ul class="nav-menu sf-js-enabled sf-arrows"><li class="page_item page-item-2"><a href="http://ellismis.com/about/">About</a></li><li class="page_item page-item-20"><a href="http://ellismis.com/photo-gallery/">Photo Gallery</a></li><li class="page_item page-item-8"><a href="http://ellismis.com/resume/">Resume</a></li></ul></div>
+   
+   <div id="undefined" class="dd-container" style="width: 100%;"><div class="dd-select" style="width: 100%;"><input class="dd-selected-value" type="hidden" value=""><a class="dd-selected"><label class="dd-selected-text"><span class="glyphicon glyphicon-align-justify"></span></label></a></div><ul class="dd-options dd-click-off-close" style="width: 100%;"><li><a class="dd-option dd-option-selected"> <label class="dd-option-text"><span class="glyphicon glyphicon-align-justify"></span></label></a></li><li><a class="dd-option"> <input class="dd-option-value" type="hidden" value="http://ellismis.com/about/"> <label class="dd-option-text">About</label></a></li><li><a class="dd-option"> <input class="dd-option-value" type="hidden" value="http://ellismis.com/photo-gallery/"> <label class="dd-option-text">Photo Gallery</label></a></li><li><a class="dd-option"> <input class="dd-option-value" type="hidden" value="http://ellismis.com/resume/"> <label class="dd-option-text">Resume</label></a></li></ul></div></nav>  
+   </div>      
+       
+  
+            
+          <!--BEGIN #searchform-->
+       <form action="http://ellismis.com/" method="get" class="searchform">         
+         <div id="search-text-box">
+  <label class="searchfield" id="search_label_top" for="search-text-top"><input id="search-text-top" type="text" tabindex="1" name="s" class="search" placeholder="Type your search"></label> 
+  </div>        
+</form>
+
+<div class="clearfix"></div> 
+
+<!--END #searchform-->
+
+            
+          
+          
+          
+
+<header id="header" class="sticky-header">
+	<div class="container">
+
+     
+      
+     
+      
+     
+     
+             
+     <div id="logo"><a class="logo-url-text" href="http://ellismis.com/">Michael Ellis – ellismis.com</a></div>
+     
+          
+     	
+
+
+		<nav id="nav" class="nav-holder">              
+ <div class="nav-menu"><ul class="nav-menu sf-js-enabled sf-arrows"><li class="page_item page-item-2"><a href="http://ellismis.com/about/">About</a></li><li class="page_item page-item-20"><a href="http://ellismis.com/photo-gallery/">Photo Gallery</a></li><li class="page_item page-item-8"><a href="http://ellismis.com/resume/">Resume</a></li></ul></div>
+ 	</nav>
+	</div>
+</header>          
+          
+      
+       
+              
+       
+             
+       
+       
+       
+       </div>
+       
+    </div>
+          	
+	<div class="menu-back">
+  
+                     
+
+              
+    
+ 	 
+  
+  
+         
+       
+
+
+ 
+      
+      </div>
+      
+    
+      
+      </div> 
+      
+    
+      
+      
+                 
+       
+             	<!--BEGIN .content-->
+	<div class="content adminsingular single s-category-programming s-author-none">  
+  
+    
+       	<!--BEGIN .container-->
+	<div class="container container-center row">
+  
+		<!--BEGIN #content-->
+		<div id="content">
+
+
+      
+  
+    
+
+
+
+			<!--BEGIN #primary .hfeed-->
+			<div id="primary" class=" col-md-12">
+      
+
+      <ul class="breadcrumbs"><li><a class="home" href="http://ellismis.com/">Home</a></li><li><a href="http://ellismis.com/category/programming/" title="Programming">Programming</a></li><li>Converting or Transcribing audio to text using C# and .NET System.Speech</li></ul>     
+ 
+ <!---------------------- 
+ ---- attachment begin
+ ----------------------->  
+
+
+  
+ 
+                                 
+                  
+
+				<!--BEGIN .hentry-->
+				<div id="post-77" class="post-77 post type-post status-publish format-standard hentry category-programming p publish first-post cat untagged col-md-12">
+					
+
+
+
+                              
+                    <h1 class="entry-title">Converting or Transcribing audio to text using C# and .NET System.Speech</h1>
+                    
+                     
+                                     
+      
+			<!--BEGIN .entry-content .article-->
+					<div class="entry-content article">
+						<p>Recently, I had a project where I needed to convert some audio to text. It took a bit more googling than I was used to in order to find the code, so I went ahead and whipped up a project that demonstrates its usage, so people can more easily find it.</p>
+<p>This code uses the .NET System.Speech namespace and demonstrates how to transcribe audio using either a microphone or a previously created .wav file using C#.</p>
+<p>The code can be divided into 2 main parts:</p>
+<ul>
+<li>configuring the <code><a title="system.speech.recognition.speechrecognitionengine" href="http://msdn.microsoft.com/en-us/library/system.speech.recognition.speechrecognitionengine.aspx" target="_blank">SpeechRecognitionEngine</a></code> object (and its required elements)</li>
+<li>handling the <code><a title="system.speech.recognition.speechrecognitionengine.speechrecognized" href="http://msdn.microsoft.com/en-us/library/system.speech.recognition.speechrecognitionengine.speechrecognized.aspx" target="_blank">SpeechRecognized</a></code> and <code><a title="system.speech.recognition.speechrecognitionengine.speechhypothesized" href="http://msdn.microsoft.com/en-us/library/system.speech.recognition.speechrecognitionengine.speechhypothesized.aspx" target="_blank">SpeechHypothesized</a></code> events.</li>
+</ul>
+<p><strong>Step 1: Configuring the SpeechRecognitionEngine</strong></p>
+<p><code>_speechRecognitionEngine = new SpeechRecognitionEngine();<br>
+_speechRecognitionEngine.SetInputToDefaultAudioDevice();<br>
+_dictationGrammar = new DictationGrammar();<br>
+_speechRecognitionEngine.LoadGrammar(_dictationGrammar);<br>
+_speechRecognitionEngine.RecognizeAsync(RecognizeMode.Multiple);<br>
+</code></p>
+<p>At this point your object is ready to start transcribing audio from the microphone. You need to handle some events though, in order to actually get access to the results.</p>
+<p><strong>Step 2: Handling the SpeechRecognitionEngine Events</strong><br>
+<code><br>
+            _speechRecognitionEngine.SpeechRecognized -= new EventHandler<speechrecognizedeventargs>(SpeechRecognized);<br>
+            _speechRecognitionEngine.SpeechHypothesized -= new EventHandler<speechhypothesizedeventargs>(SpeechHypothesizing);</speechhypothesizedeventargs></speechrecognizedeventargs></code></p><code>
+<p>            _speechRecognitionEngine.SpeechRecognized += new EventHandler<speechrecognizedeventargs>(SpeechRecognized);<br>
+            _speechRecognitionEngine.SpeechHypothesized += new EventHandler<speechhypothesizedeventargs>(SpeechHypothesizing);</speechhypothesizedeventargs></speechrecognizedeventargs></p>
+<p>        private void SpeechHypothesizing(object sender, SpeechHypothesizedEventArgs e)<br>
+        {<br>
+            ///real-time results from the engine<br>
+string realTimeResults = e.Result.Text;<br>
+        }</p>
+</code><p><code>        private void SpeechRecognized(object sender, SpeechRecognizedEventArgs e)<br>
+        {<br>
+            ///final answer from the engine<br>
+string finalAnswer = e.Result.Text;<br>
+        }</code></p>
+<p>
+That’s it.  If you want to use a pre-recorded .wav file instead of a microphone, you would use <code>_speechRecognitionEngine.SetInputToWaveFile(pathToTargetWavFile);</code> instead of <code>_speechRecognitionEngine.SetInputToDefaultAudioDevice();</code>.</p>
+<p>There are a bunch of different options in these classes and they are worth exploring in more detail.  This covers the bare essentials for a prototype.  I have attached a full example and encapsulation <a href="http://ellismis.com/wp-content/uploads/2012/03/MicrosoftSpeechToTextExample.zip">here</a>.</p>
+            					<!--END .entry-content .article-->
+					
+          <div class="clearfix"></div> 
+          </div>
+          
+          
+						<!--BEGIN .entry-meta .entry-footer-->
+                    <div class="entry-meta entry-footer row">
+                    <div class="col-md-6">
+                    
+                    	                    	<div class="entry-categories"> <a href="http://ellismis.com/category/programming/" title="View all posts in Programming" rel="category tag">Programming</a></div>
+                      											<!--END .entry-meta .entry-footer-->
+          
+          </div>
+          
+          <div class="col-md-6">          
+               <div class="share-this">
+          <a rel="nofollow" class="tipsytext" target="_blank" href="http://twitter.com/intent/tweet?status=Converting%20or%20Transcribing%20audio%20to%20text%20using%20C# and .NET System.Speech+»+http://tinyurl.com/6qxyte6" original-title="Share on Twitter"><i class="fa fa-twitter"></i></a>
+          <a rel="nofollow" class="tipsytext" target="_blank" href="http://www.facebook.com/sharer/sharer.php?u=http://ellismis.com/2012/03/17/converting-or-transcribing-audio-to-text-using-c-and-net-system-speech/&t=Converting%20or%20Transcribing%20audio%20to%20text%20using%20C# and .NET System.Speech" original-title="Share on Facebook"><i class="fa fa-facebook"></i></a>
+          <a rel="nofollow" class="tipsytext" target="_blank" href="https://plus.google.com/share?url=http://ellismis.com/2012/03/17/converting-or-transcribing-audio-to-text-using-c-and-net-system-speech/" original-title="Share on Google Plus"><i class="fa fa-google-plus"></i></a>
+          <a rel="nofollow" class="tipsytext" target="_blank" href="http://pinterest.com/pin/create/button/?url=http://ellismis.com/2012/03/17/converting-or-transcribing-audio-to-text-using-c-and-net-system-speech/" original-title="Share on Pinterest"><i class="fa fa-pinterest"></i></a>
+          <a rel="nofollow" class="tipsytext" target="_blank" href="http://www.addtoany.com/email?linkurl=http://ellismis.com/2012/03/17/converting-or-transcribing-audio-to-text-using-c-and-net-system-speech/&linkname=Converting%20or%20Transcribing%20audio%20to%20text%20using%20C# and .NET System.Speech" original-title="Share by Email"><i class="fa fa-envelope"></i></a>
+          <a rel="nofollow" class="tipsytext" target="_blank" href="http://www.addtoany.com/share_save#url=http://ellismis.com/2012/03/17/converting-or-transcribing-audio-to-text-using-c-and-net-system-speech/&linkname=Converting or Transcribing audio to text using C# and .NET System.Speech" original-title="More options"><i class="fa fa-share"></i></a>
+          </div>
+        </div>
+        
+                    </div>
+                    
+                    
+                                   
+                    <!-- Auto Discovery Trackbacks
+					<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+			xmlns:dc="http://purl.org/dc/elements/1.1/"
+			xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+		<rdf:Description rdf:about="http://ellismis.com/2012/03/17/converting-or-transcribing-audio-to-text-using-c-and-net-system-speech/"
+    dc:identifier="http://ellismis.com/2012/03/17/converting-or-transcribing-audio-to-text-using-c-and-net-system-speech/"
+    dc:title="Converting or Transcribing audio to text using C# and .NET System.Speech"
+    trackback:ping="http://ellismis.com/2012/03/17/converting-or-transcribing-audio-to-text-using-c-and-net-system-speech/trackback/" />
+</rdf:RDF>					-->
+				<!--END .hentry-->
+				</div>
+        
+     
+        
+        
+        
+        
+  
+
+       
+                       
+				<!--BEGIN .navigation-links-->
+<div class="navigation-links single-page-navigation clearfix row">
+	<div class="col-sm-6 col-md-6 nav-previous"><a href="http://ellismis.com/2012/01/16/converting-powerpoint-audio-to-mp3/" rel="prev"><div class="btn btn-left icon-arrow-left icon-big">Converting Embedded Powerpoint Audio to .mp3</div></a></div>
+	<div class="col-sm-6 col-md-6 nav-next"></div>
+<!--END .navigation-links-->
+</div>
+<div class="clearfix"></div> 
+
+        
+           
+
+				
+<div id="comments">   
+<!--BEGIN #comments-->
+
+    
+	<span class="comments-title-back"><h3 class="comment-title"><span class="comment-title-meta">10 Comments</span></h3>    <span class="comment-feed-link"><a class="tipsytext follow-replies" href="http://ellismis.com/2012/03/17/converting-or-transcribing-audio-to-text-using-c-and-net-system-speech/feed/" original-title="Follow replies"><i class="fa fa-rss"></i></a></span></span> 
+    <!--BEGIN .comment-list-->
+    <ol class="comment-list">
+		    
+    <!--BEING .comment-->
+	<li class="comment first-comment reader reader-nick microid-mailto+http:sha1:b59a1dc89f1ca217c2149a5d45ec719767543030" id="comment-38">
+    	<!--BEGIN .comment-author-->
+<div class="comment-header"><div class="comment-author vcard">
+<img class="avatar gravatar gravatar-45 img-responsive" alt="Nick&#39;s Gravatar" src="./Converting or Transcribing audio to text using C# and .NET System.Speech   Michael Ellis - ellismis.com_files/ec4ec8dd9c85cd8fee6f17b1603932f0" width="45" height="45"> <cite class="commenter fn n"><a href="http://nkonecny.com/blog" rel="external nofollow" class="url">Nick</a></cite>
+<!--END .comment-author-->
+</div>
+<!--BEGIN .comment-meta-->
+<div class="comment-meta">
+<span class="comment-date">April 28, 2012</span>
+&nbsp;&nbsp;&nbsp;<span class="comment-permalink"><a rel="bookmark" title="Permalink to this comment" href="http://ellismis.com/2012/03/17/converting-or-transcribing-audio-to-text-using-c-and-net-system-speech/#comment-38"><i class="fa fa-link"></i></a></span>
+ 
+<!--END .comment-meta-->
+</div></div>
+
+<!--BEGIN .comment-content-->
+<div class="comment-content">
+<p>Awesome! I was looking for exactly this and having the code project with it made it even sweeter! Have you planned on doing anything more with the speech recognition? I’m just starting out using it and C# for that matter (coming from Java) for home automation. Would be interested in any other projects related to speech recognition. Thanks again!</p>
+
+<!--END .comment-content-->
+</div>
+<div class="comment-reply"><a class="comment-reply-link" href="http://ellismis.com/2012/03/17/converting-or-transcribing-audio-to-text-using-c-and-net-system-speech/?replytocom=38#respond" onclick="return addComment.moveForm(&quot;comment-38&quot;, &quot;38&quot;, &quot;respond&quot;, &quot;77&quot;)">Reply</a></div>	<ul class="children">
+    
+    <!--BEING .comment-->
+	<li class="comment administrator administrator-admin microid-mailto+http:sha1:ba29154830f5ce2744d4ef4fe1561edf56dfbb95" id="comment-41">
+    	<!--BEGIN .comment-author-->
+<div class="comment-header"><div class="comment-author vcard">
+<img class="avatar gravatar gravatar-45 img-responsive" alt="admin&#39;s Gravatar" src="./Converting or Transcribing audio to text using C# and .NET System.Speech   Michael Ellis - ellismis.com_files/a2b1f0fd3d229066dfd19a02415d7ab9" width="45" height="45"> <cite class="commenter fn n"><a href="http://www.ellismis.com/" rel="external nofollow" class="url">admin</a></cite>
+<!--END .comment-author-->
+</div>
+<!--BEGIN .comment-meta-->
+<div class="comment-meta">
+<span class="comment-date">May 6, 2012</span>
+&nbsp;&nbsp;&nbsp;<span class="comment-permalink"><a rel="bookmark" title="Permalink to this comment" href="http://ellismis.com/2012/03/17/converting-or-transcribing-audio-to-text-using-c-and-net-system-speech/#comment-41"><i class="fa fa-link"></i></a></span>
+ 
+<!--END .comment-meta-->
+</div></div>
+
+<!--BEGIN .comment-content-->
+<div class="comment-content">
+<p>Hey Nicholas,</p>
+<p>I really do not have any more plans for working with speech recognition.  I found the Microsoft solution and a Google solution.  I would like to get my hands on the Dragon NaturallySpeaking SDK and see how good that is, but I have no plans in the immediate future for working on it.</p>
+<p>Good luck with your home automation and thanks for responding to my blog!</p>
+
+<!--END .comment-content-->
+</div>
+<div class="comment-reply"><a class="comment-reply-link" href="http://ellismis.com/2012/03/17/converting-or-transcribing-audio-to-text-using-c-and-net-system-speech/?replytocom=41#respond" onclick="return addComment.moveForm(&quot;comment-41&quot;, &quot;41&quot;, &quot;respond&quot;, &quot;77&quot;)">Reply</a></div>	<!--END .comment-->
+</li>
+</ul><!-- .children -->
+<!--END .comment-->
+</li>
+    
+    <!--BEING .comment-->
+	<li class="comment reader reader-chandan microid-mailto+http:sha1:d8d34d7aa44b35e3c0b032def4b989e99fafcdd8" id="comment-42">
+    	<!--BEGIN .comment-author-->
+<div class="comment-header"><div class="comment-author vcard">
+<img class="avatar gravatar gravatar-45 img-responsive" alt="chandan&#39;s Gravatar" src="./Converting or Transcribing audio to text using C# and .NET System.Speech   Michael Ellis - ellismis.com_files/d9552bbed17104c2b631f86447016153" width="45" height="45"> <cite class="commenter fn n"><a href="http://www.iamchandan.in/" rel="external nofollow" class="url">chandan</a></cite>
+<!--END .comment-author-->
+</div>
+<!--BEGIN .comment-meta-->
+<div class="comment-meta">
+<span class="comment-date">May 18, 2012</span>
+&nbsp;&nbsp;&nbsp;<span class="comment-permalink"><a rel="bookmark" title="Permalink to this comment" href="http://ellismis.com/2012/03/17/converting-or-transcribing-audio-to-text-using-c-and-net-system-speech/#comment-42"><i class="fa fa-link"></i></a></span>
+ 
+<!--END .comment-meta-->
+</div></div>
+
+<!--BEGIN .comment-content-->
+<div class="comment-content">
+<p>Hey can you guide to build and debug this project.</p>
+
+<!--END .comment-content-->
+</div>
+<div class="comment-reply"><a class="comment-reply-link" href="http://ellismis.com/2012/03/17/converting-or-transcribing-audio-to-text-using-c-and-net-system-speech/?replytocom=42#respond" onclick="return addComment.moveForm(&quot;comment-42&quot;, &quot;42&quot;, &quot;respond&quot;, &quot;77&quot;)">Reply</a></div>	<!--END .comment-->
+</li>
+    
+    <!--BEING .comment-->
+	<li class="comment reader reader-jean-philippe-encausse microid-mailto+http:sha1:bed27b9d77500d4971ec3563e5c9ffa3248b7d38" id="comment-59">
+    	<!--BEGIN .comment-author-->
+<div class="comment-header"><div class="comment-author vcard">
+<img class="avatar gravatar gravatar-45 img-responsive" alt="Jean-Philippe Encausse&#39;s Gravatar" src="./Converting or Transcribing audio to text using C# and .NET System.Speech   Michael Ellis - ellismis.com_files/52f87ab37cbd1f96d4170a20fd8203da" width="45" height="45"> <cite class="commenter fn n"><a href="http://www.encausse.net/" rel="external nofollow" class="url">Jean-Philippe Encausse</a></cite>
+<!--END .comment-author-->
+</div>
+<!--BEGIN .comment-meta-->
+<div class="comment-meta">
+<span class="comment-date">September 25, 2012</span>
+&nbsp;&nbsp;&nbsp;<span class="comment-permalink"><a rel="bookmark" title="Permalink to this comment" href="http://ellismis.com/2012/03/17/converting-or-transcribing-audio-to-text-using-c-and-net-system-speech/#comment-59"><i class="fa fa-link"></i></a></span>
+ 
+<!--END .comment-meta-->
+</div></div>
+
+<!--BEGIN .comment-content-->
+<div class="comment-content">
+<p>Hi,</p>
+<p>Any ideas on how to handle wildcard/garbage from XML grammar ? </p>
+<p><a href="http://stackoverflow.com/questions/12101120/matching-wildcard-dictation-in-microsoft-speech-grammar/12535235" rel="nofollow">http://stackoverflow.com/questions/12101120/matching-wildcard-dictation-in-microsoft-speech-grammar/12535235</a></p>
+
+<!--END .comment-content-->
+</div>
+<div class="comment-reply"><a class="comment-reply-link" href="http://ellismis.com/2012/03/17/converting-or-transcribing-audio-to-text-using-c-and-net-system-speech/?replytocom=59#respond" onclick="return addComment.moveForm(&quot;comment-59&quot;, &quot;59&quot;, &quot;respond&quot;, &quot;77&quot;)">Reply</a></div>	<!--END .comment-->
+</li>
+    
+    <!--BEING .comment-->
+	<li class="comment reader reader-john-nelson" id="comment-60">
+    	<!--BEGIN .comment-author-->
+<div class="comment-header"><div class="comment-author vcard">
+<img class="avatar gravatar gravatar-45 img-responsive" alt="John Nelson&#39;s Gravatar" src="./Converting or Transcribing audio to text using C# and .NET System.Speech   Michael Ellis - ellismis.com_files/587de3ff84a34f0b5e801109582681c0" width="45" height="45"> <cite class="commenter fn n">John Nelson</cite>
+<!--END .comment-author-->
+</div>
+<!--BEGIN .comment-meta-->
+<div class="comment-meta">
+<span class="comment-date">September 29, 2012</span>
+&nbsp;&nbsp;&nbsp;<span class="comment-permalink"><a rel="bookmark" title="Permalink to this comment" href="http://ellismis.com/2012/03/17/converting-or-transcribing-audio-to-text-using-c-and-net-system-speech/#comment-60"><i class="fa fa-link"></i></a></span>
+ 
+<!--END .comment-meta-->
+</div></div>
+
+<!--BEGIN .comment-content-->
+<div class="comment-content">
+<p>What was the Google solution?</p>
+
+<!--END .comment-content-->
+</div>
+<div class="comment-reply"><a class="comment-reply-link" href="http://ellismis.com/2012/03/17/converting-or-transcribing-audio-to-text-using-c-and-net-system-speech/?replytocom=60#respond" onclick="return addComment.moveForm(&quot;comment-60&quot;, &quot;60&quot;, &quot;respond&quot;, &quot;77&quot;)">Reply</a></div>	<!--END .comment-->
+</li>
+    
+    <!--BEING .comment-->
+	<li class="comment reader reader-julian" id="comment-68">
+    	<!--BEGIN .comment-author-->
+<div class="comment-header"><div class="comment-author vcard">
+<img class="avatar gravatar gravatar-45 img-responsive" alt="Julian&#39;s Gravatar" src="./Converting or Transcribing audio to text using C# and .NET System.Speech   Michael Ellis - ellismis.com_files/ad0db01b43d80ae3b87ee90591e0b284" width="45" height="45"> <cite class="commenter fn n">Julian</cite>
+<!--END .comment-author-->
+</div>
+<!--BEGIN .comment-meta-->
+<div class="comment-meta">
+<span class="comment-date">December 3, 2012</span>
+&nbsp;&nbsp;&nbsp;<span class="comment-permalink"><a rel="bookmark" title="Permalink to this comment" href="http://ellismis.com/2012/03/17/converting-or-transcribing-audio-to-text-using-c-and-net-system-speech/#comment-68"><i class="fa fa-link"></i></a></span>
+ 
+<!--END .comment-meta-->
+</div></div>
+
+<!--BEGIN .comment-content-->
+<div class="comment-content">
+<p>Like the article. Do you know if its possible to have a voice recognition system which identifies a certain word or words when someone speaks it or them and then converts it to text with a time when the word was spoken? Can it be incorporated into an ipad or tablet? If I have a sales person and I want them to emphasise the brand name for example, it will display as text every time they mentioned the brand name.</p>
+
+<!--END .comment-content-->
+</div>
+<div class="comment-reply"><a class="comment-reply-link" href="http://ellismis.com/2012/03/17/converting-or-transcribing-audio-to-text-using-c-and-net-system-speech/?replytocom=68#respond" onclick="return addComment.moveForm(&quot;comment-68&quot;, &quot;68&quot;, &quot;respond&quot;, &quot;77&quot;)">Reply</a></div>	<!--END .comment-->
+</li>
+    
+    <!--BEING .comment-->
+	<li class="comment reader reader-ram-raksha-mishra" id="comment-87">
+    	<!--BEGIN .comment-author-->
+<div class="comment-header"><div class="comment-author vcard">
+<img class="avatar gravatar gravatar-45 img-responsive" alt="Ram Raksha Mishra&#39;s Gravatar" src="./Converting or Transcribing audio to text using C# and .NET System.Speech   Michael Ellis - ellismis.com_files/47606ea838ad33af276815b63eac712d" width="45" height="45"> <cite class="commenter fn n">Ram Raksha Mishra</cite>
+<!--END .comment-author-->
+</div>
+<!--BEGIN .comment-meta-->
+<div class="comment-meta">
+<span class="comment-date">January 7, 2013</span>
+&nbsp;&nbsp;&nbsp;<span class="comment-permalink"><a rel="bookmark" title="Permalink to this comment" href="http://ellismis.com/2012/03/17/converting-or-transcribing-audio-to-text-using-c-and-net-system-speech/#comment-87"><i class="fa fa-link"></i></a></span>
+ 
+<!--END .comment-meta-->
+</div></div>
+
+<!--BEGIN .comment-content-->
+<div class="comment-content">
+<p>hey it is awesome but  there are some problem with this code<br>
+1.Not converting long audio file(more than 1 min) in proper format<br>
+2.converted txt not match with audio voice<br>
+Please give me some solutions as soon as possible<br>
+thanks</p>
+
+<!--END .comment-content-->
+</div>
+<div class="comment-reply"><a class="comment-reply-link" href="http://ellismis.com/2012/03/17/converting-or-transcribing-audio-to-text-using-c-and-net-system-speech/?replytocom=87#respond" onclick="return addComment.moveForm(&quot;comment-87&quot;, &quot;87&quot;, &quot;respond&quot;, &quot;77&quot;)">Reply</a></div>	<!--END .comment-->
+</li>
+    
+    <!--BEING .comment-->
+	<li class="comment reader reader-jhonas" id="comment-94">
+    	<!--BEGIN .comment-author-->
+<div class="comment-header"><div class="comment-author vcard">
+<img class="avatar gravatar gravatar-45 img-responsive" alt="jhonas&#39;s Gravatar" src="./Converting or Transcribing audio to text using C# and .NET System.Speech   Michael Ellis - ellismis.com_files/4e48efd3f1134dd6c6264fdeaaf5aa4c" width="45" height="45"> <cite class="commenter fn n">jhonas</cite>
+<!--END .comment-author-->
+</div>
+<!--BEGIN .comment-meta-->
+<div class="comment-meta">
+<span class="comment-date">February 3, 2013</span>
+&nbsp;&nbsp;&nbsp;<span class="comment-permalink"><a rel="bookmark" title="Permalink to this comment" href="http://ellismis.com/2012/03/17/converting-or-transcribing-audio-to-text-using-c-and-net-system-speech/#comment-94"><i class="fa fa-link"></i></a></span>
+ 
+<!--END .comment-meta-->
+</div></div>
+
+<!--BEGIN .comment-content-->
+<div class="comment-content">
+<p>Where could I read to actually build a command line application that would take microphone input or a wav file and provide me with a cout of the text in visual studio 2010</p>
+
+<!--END .comment-content-->
+</div>
+<div class="comment-reply"><a class="comment-reply-link" href="http://ellismis.com/2012/03/17/converting-or-transcribing-audio-to-text-using-c-and-net-system-speech/?replytocom=94#respond" onclick="return addComment.moveForm(&quot;comment-94&quot;, &quot;94&quot;, &quot;respond&quot;, &quot;77&quot;)">Reply</a></div>	<!--END .comment-->
+</li>
+    
+    <!--BEING .comment-->
+	<li class="comment reader reader-govind-dhawale" id="comment-120">
+    	<!--BEGIN .comment-author-->
+<div class="comment-header"><div class="comment-author vcard">
+<img class="avatar gravatar gravatar-45 img-responsive" alt="Govind Dhawale&#39;s Gravatar" src="./Converting or Transcribing audio to text using C# and .NET System.Speech   Michael Ellis - ellismis.com_files/90688ac02cbd7066f765b2223277387a" width="45" height="45"> <cite class="commenter fn n">Govind Dhawale</cite>
+<!--END .comment-author-->
+</div>
+<!--BEGIN .comment-meta-->
+<div class="comment-meta">
+<span class="comment-date">June 27, 2013</span>
+&nbsp;&nbsp;&nbsp;<span class="comment-permalink"><a rel="bookmark" title="Permalink to this comment" href="http://ellismis.com/2012/03/17/converting-or-transcribing-audio-to-text-using-c-and-net-system-speech/#comment-120"><i class="fa fa-link"></i></a></span>
+ 
+<!--END .comment-meta-->
+</div></div>
+
+<!--BEGIN .comment-content-->
+<div class="comment-content">
+<p>Thanks</p>
+
+<!--END .comment-content-->
+</div>
+<div class="comment-reply"><a class="comment-reply-link" href="http://ellismis.com/2012/03/17/converting-or-transcribing-audio-to-text-using-c-and-net-system-speech/?replytocom=120#respond" onclick="return addComment.moveForm(&quot;comment-120&quot;, &quot;120&quot;, &quot;respond&quot;, &quot;77&quot;)">Reply</a></div>	<!--END .comment-->
+</li>
+    
+    <!--BEING .comment-->
+	<li class="comment reader reader-willian" id="comment-124">
+    	<!--BEGIN .comment-author-->
+<div class="comment-header"><div class="comment-author vcard">
+<img class="avatar gravatar gravatar-45 img-responsive" alt="willian&#39;s Gravatar" src="./Converting or Transcribing audio to text using C# and .NET System.Speech   Michael Ellis - ellismis.com_files/60a32125832043aff13be2191f1286b6" width="45" height="45"> <cite class="commenter fn n">willian</cite>
+<!--END .comment-author-->
+</div>
+<!--BEGIN .comment-meta-->
+<div class="comment-meta">
+<span class="comment-date">July 26, 2013</span>
+&nbsp;&nbsp;&nbsp;<span class="comment-permalink"><a rel="bookmark" title="Permalink to this comment" href="http://ellismis.com/2012/03/17/converting-or-transcribing-audio-to-text-using-c-and-net-system-speech/#comment-124"><i class="fa fa-link"></i></a></span>
+ 
+<!--END .comment-meta-->
+</div></div>
+
+<!--BEGIN .comment-content-->
+<div class="comment-content">
+<p>Eu queria mais explicações. Teria como eu entrar em contato com você?</p>
+
+<!--END .comment-content-->
+</div>
+<div class="comment-reply"><a class="comment-reply-link" href="http://ellismis.com/2012/03/17/converting-or-transcribing-audio-to-text-using-c-and-net-system-speech/?replytocom=124#respond" onclick="return addComment.moveForm(&quot;comment-124&quot;, &quot;124&quot;, &quot;respond&quot;, &quot;77&quot;)">Reply</a></div>	<!--END .comment-->
+</li>
+    <!--END .comment-list-->
+    </ol>
+    
+<div class="navigation-links page-navigation clearfix row">
+<div class="col-sm-6 col-md-6 nav-next"></div>
+<div class="col-sm-6 col-md-6 nav-previous"></div>
+</div>    
+    
+
+
+<!--END #comments-->   
+
+</div>
+
+<!--BEGIN #respond-->
+
+
+    
+    
+  
+    <!--BEGIN #comment-form-->
+
+<div class="clearfix"></div>        
+
+									<div id="respond" class="comment-respond">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="http://ellismis.com/2012/03/17/converting-or-transcribing-audio-to-text-using-c-and-net-system-speech/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://ellismis.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																			<p class="comment-notes">Your email address will not be published. Required fields are marked <span class="required">*</span></p>							<p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" aria-required="true"></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="text" value="" size="30" aria-required="true"></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="text" value="" size="30"></p>
+												<p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea></p>						<p class="form-allowed-tags">You may use these <abbr title="HyperText Markup Language">HTML</abbr> tags and attributes:  <code>&lt;a href="" title=""&gt; &lt;abbr title=""&gt; &lt;acronym title=""&gt; &lt;b&gt; &lt;blockquote cite=""&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=""&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=""&gt; &lt;strike&gt; &lt;strong&gt; </code></p>						<p class="form-submit">
+							<input name="submit" type="submit" id="submit" value="Post Comment">
+							<input type="hidden" name="comment_post_ID" value="77" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+						</p>
+						<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="921f36e52d"></p>					</form>
+							</div><!-- #respond -->
+			    <!--END #comment-form-->
+   
+    
+
+<!--END #respond-->
+
+
+
+                
+				
+ <!---------------------- 
+ ---- single post end
+ -----------------------> 
+
+
+ <!---------------------- 
+ ---- home/date/category/tag/search/author begin
+ ----------------------->         
+      
+      
+
+			<!--END #primary .hfeed-->
+			</div>
+      
+        
+  
+  
+		<!--END #content-->
+		</div>
+    
+    	<!--END .container-->
+	</div> 
+  
+  
+
+      	<!--END .content-->
+	</div> 
+  
+  
+
+  
+     <!--BEGIN .content-bottom--> 
+  <div class="content-bottom">
+  
+       	<!--END .content-bottom-->
+  </div>
+			
+		<!--BEGIN .footer-->
+		<div class="footer">
+    
+    
+   	<!--BEGIN .container-->
+	<div class="container container-footer">    
+  
+  
+
+<div class="clearfix"></div> 
+  
+     
+
+
+ 
+
+  
+  
+
+			<!-- Theme Hook -->
+      
+      
+
+  
+
+<script type="text/javascript" charset="utf-8">
+var $jx = jQuery.noConflict();
+  $jx("div.post").mouseover(function() {
+    $jx(this).find("span.edit-post").css('visibility', 'visible');
+  }).mouseout(function(){
+    $jx(this).find("span.edit-post").css('visibility', 'hidden');
+  });
+  
+    $jx("div.type-page").mouseover(function() {
+    $jx(this).find("span.edit-page").css('visibility', 'visible');
+  }).mouseout(function(){
+    $jx(this).find("span.edit-page").css('visibility', 'hidden');
+  });
+  
+      $jx("div.type-attachment").mouseover(function() {
+    $jx(this).find("span.edit-post").css('visibility', 'visible');
+  }).mouseout(function(){
+    $jx(this).find("span.edit-post").css('visibility', 'hidden');
+  });
+  
+  $jx("li.comment").mouseover(function() {
+    $jx(this).find("span.edit-comment").css('visibility', 'visible');
+  }).mouseout(function(){
+    $jx(this).find("span.edit-comment").css('visibility', 'hidden');
+  });
+</script> 
+
+
+  
+
+<script type="text/javascript" charset="utf-8"> 
+//
+//
+// 
+// Sticky Header
+//
+//
+//             
+  
+jQuery(document).ready(function($) {
+	if(jQuery('.sticky-header').length >= 1) {
+		jQuery(window).scroll(function() {
+		     var header = jQuery(document).scrollTop();
+		     var headerHeight = jQuery('.menu-header').height();
+
+	       if(header > headerHeight) {
+		     	jQuery('.sticky-header').addClass('sticky');
+		     	jQuery('.sticky-header').fadeIn();
+		     } else {
+		     	jQuery('.sticky-header').removeClass('sticky');
+		     	jQuery('.sticky-header').hide();
+		     }
+		});
+	}
+}); 
+</script>
+  
+ 
+
+
+ 
+
+<script type="text/javascript" charset="utf-8">
+//
+//
+// 
+// Animated Buttons
+//
+//
+//      
+var $animated = jQuery.noConflict();
+$animated('.post-more').hover(
+       function(){ $animated(this).addClass('animated pulse') },
+       function(){ $animated(this).removeClass('animated pulse') }
+)   
+$animated('.read-more').hover(
+       function(){ $animated(this).addClass('animated pulse') },
+       function(){ $animated(this).removeClass('animated pulse') }
+)
+$animated('#submit').hover(
+       function(){ $animated(this).addClass('animated pulse') },
+       function(){ $animated(this).removeClass('animated pulse') }
+)
+$animated('input[type="submit"]').hover(
+       function(){ $animated(this).addClass('animated pulse') },
+       function(){ $animated(this).removeClass('animated pulse') }
+)
+
+</script>
+
+
+
+
+<script type="text/javascript" charset="utf-8">
+var $s = jQuery.noConflict();
+	$s(function(){ 
+$s('#slides') 
+  .anythingSlider({autoPlay: true,delay: 3500,}) 
+  })
+</script>
+
+ 
+
+
+
+<script type="text/javascript" charset="utf-8">
+var $par = jQuery.noConflict(); 
+  $par('#da-slider').cslider({
+					autoplay	: true,
+					bgincrement	: 450,
+          interval	: 4000				});
+
+</script>
+
+
+
+<script type="text/javascript" charset="utf-8">
+var $carousel = jQuery.noConflict();
+$carousel('#myCarousel').carousel({
+interval: 7000
+})
+$carousel('#carousel-nav a').click(function(q){
+q.preventDefault();
+targetSlide = $carousel(this).attr('data-to')-1;
+$carousel('#myCarousel').carousel(targetSlide);
+$carousel(this).addClass('active').siblings().removeClass('active');
+});
+    
+// $('#carousel-rel a').click(function(q){
+//         console.log('Clicked');
+//         targetSlide = (parseInt($('#carousel-rel a.active').data('to')) + 1) % 3;
+//         console.log('targetSlide');
+//         $('#carousel-rel a[data-to='+ targetSlide +']').addClass('active').siblings().removeClass('active');
+//     });
+</script>
+
+
+
+<p id="copyright"><span class="credits"><a href="http://theme4press.com/evolve/">evolve</a> theme by Theme4Press&nbsp;&nbsp;•&nbsp;&nbsp;Powered by <a href="http://wordpress.org/">WordPress</a></span></p> 
+      
+		  
+
+          	<!--END .container-->  
+	</div> 
+
+
+
+ 
+		
+		<!--END .footer-->
+		</div>
+
+<!--END body-->  
+
+
+
+    
+   
+</div>
+
+<script type="text/javascript" src="./Converting or Transcribing audio to text using C# and .NET System.Speech   Michael Ellis - ellismis.com_files/tabs.js"></script>
+<script type="text/javascript" src="./Converting or Transcribing audio to text using C# and .NET System.Speech   Michael Ellis - ellismis.com_files/main.js"></script>
+<script type="text/javascript" src="./Converting or Transcribing audio to text using C# and .NET System.Speech   Michael Ellis - ellismis.com_files/gmap.js"></script>
+ 
+
+
+<!--END html(kthxbye)-->
+</body></html>
