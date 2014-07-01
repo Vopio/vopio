@@ -1,0 +1,11 @@
+
+document.write("<scr"+"ipt type='text/javascript'>\n");
+document.write("var ACE_AR = {site: '907698', size: '300250'};\n");
+document.write("</scr"+"ipt>\n");
+
+document.write("<scr"+"ipt type='text/javascript' SRC='http://uac.advertising.com/wrapper/aceUAC.js'>\n");
+document.write("</scr"+"ipt>\n");
+
+
+var adcount_3200491_1_=new Image();
+adcount_3200491_1_.src="http://adserver.adtechus.com/adcount/3.0/9513/3200491/0/170/AdId=5549424;BnId=2;ct=3608273910;st=305271;adcid=1;itime=238870483;reqtype=5;";

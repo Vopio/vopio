@@ -1,4 +1,6 @@
-﻿Public Class home
+﻿Imports System.Speech
+Public Class home
+
     Dim counter = 0
     Dim recordingRefresh = 0
     Dim countRecord = 0
@@ -11,6 +13,15 @@
     ByVal uReturnLength As Long, _
     ByVal hwndCallback As Long) As Long
 
+
+    ' Speech
+    Public synth As New Speech.Synthesis.SpeechSynthesizer
+    Public WithEvents recognizer As New Speech.Recognition.SpeechRecognitionEngine
+    Dim gram As New System.Speech.Recognition.DictationGrammar()
+
+
+
+
     Private Sub home_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         txtRecordLength.Text = "15"
         recordingRefresh = txtRecordLength.Text
@@ -20,12 +31,14 @@
         storePATH = s
         My.Computer.FileSystem.CreateDirectory(s + "\VopioAudioSnippets\")
         finalStorePath = s + "\VopioAudioSnippets\"
+        recognizer.LoadGrammar(gram)
+
+
     End Sub
 
     Private Sub RecordSound()
         mciSendString("open new Type waveaudio Alias recsound", "", 0, 0)
         mciSendString("record recsound", "", 0, 0)
-        'abel1.Text = "Recording..."
         lblDisplayStatus.Visible = True
     End Sub
 
@@ -49,17 +62,9 @@
         mciSendString("close recsound", "", 0, 0)
         MsgBox("File Created: " + finalStorePath + mydate + ".wav", MsgBoxStyle.OkOnly, "Success")
         My.Computer.Audio.Stop()
-        ' make a reference to a directory
-        listRecordings.Items.Clear()
-        Dim di As New IO.DirectoryInfo(storePATH + "\VopioAudioSnippets")
-        Dim diar1 As IO.FileInfo() = di.GetFiles()
-        Dim dra As IO.FileInfo
 
-        'list the names of all files in the specified directory
-        For Each dra In diar1
-            listRecordings.Items.Add(dra)
+        UpdateDirectory()
 
-        Next
         recordingRefresh = txtRecordLength.Text
         countRecord = 0
 
@@ -69,79 +74,103 @@
 
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+        Cursor.Current = Cursors.Hand
         countRecord += 1
         lblDisplayStatus.Text = "Recording..." + CStr(countRecord) + " s"
-        'Label2.Text = TimeOfDay
+        Cursor.Current = Cursors.Hand
         RecordSound()
         Static ElapsedSeconds As Integer = 1
         Dim ElapsedMod As Integer = 1
         ElapsedMod = ElapsedSeconds Mod recordingRefresh
         If ElapsedMod = 0 Then
             Timer1.Stop()
-
-            'Label2.Text = "Timer Stopped"
             ResetRecord()
-
-
         End If
         ElapsedSeconds += 1
     End Sub
 
-   
-  
-    Private Sub lblSavedWords_Click(sender As Object, e As EventArgs) Handles lblSavedWords.Click
-        lblDisplayStatus.Visible = False
-        txtRecordLength.Visible = False
-        listRecordings.Visible = True
-        btnSave.Visible = False
-        lblSave.Visible = False
-        btnPlay.Visible = True
-    End Sub
-
-    
+    'SavedWords UI
     Private Sub imgSavedWords_Click(sender As Object, e As EventArgs) Handles imgSavedWords.Click
-        lblDisplayStatus.Visible = False
-        txtRecordLength.Visible = False
-        listRecordings.Visible = True
-        btnSave.Visible = False
-        lblSave.Visible = False
-        btnPlay.Visible = True
+        DisplaySavedWords()
+    End Sub
+    Private Sub lblSavedWords_Click(sender As Object, e As EventArgs) Handles lblSavedWords.Click
+        DisplaySavedWords()
     End Sub
 
-    Private Sub imgHome_Click(sender As Object, e As EventArgs) Handles imgHome.Click
-        lblDisplayStatus.Visible = True
+    Private Sub DisplaySavedWords()
+        listRecordings.Visible = True
+        btnPlay.Visible = True
+        btnTranscribe.Visible = True
+        btnDelete.Visible = True
+
+        'Settings False
         txtRecordLength.Visible = False
-        listRecordings.Visible = False
+        btnUpdateRecordingLength.Visible = False
+        trackRecordingLength.Visible = False
+        lblSetRecordingHeader.Visible = False
+
+        'Home False
+        btnSave.Visible = False
+        lblSave.Visible = False
+
+        'Assembla Ticket # 11 Implementation: Listings should always be updated
+        UpdateDirectory()
+    End Sub
+
+    Private Sub DisplayHome()
+        lblDisplayStatus.Visible = True
         btnSave.Visible = True
         lblSave.Visible = True
-        btnPlay.Visible = True
+
+        'Saved Words False
+        listRecordings.Visible = False
+        btnPlay.Visible = False
+        btnTranscribe.Visible = False
+        btnDelete.Visible = False
+
+        'Settings False
+        txtRecordLength.Visible = False
+        btnUpdateRecordingLength.Visible = False
+        trackRecordingLength.Visible = False
+        lblSetRecordingHeader.Visible = False
+    End Sub
+
+    Private Sub DisplaySettings()
+        'False Values
+        lblDisplayStatus.Visible = True
+        txtRecordLength.Visible = True
+        btnUpdateRecordingLength.Visible = True
+        trackRecordingLength.Visible = True
+        lblSetRecordingHeader.Visible = True
+
+        'Saved Words False
+        listRecordings.Visible = False
+        btnPlay.Visible = False
+        btnTranscribe.Visible = False
+        btnDelete.Visible = False
+
+       'Home False
+        btnSave.Visible = False
+        lblSave.Visible = False
+
+
+    End Sub
+    
+
+    Private Sub imgHome_Click(sender As Object, e As EventArgs) Handles imgHome.Click
+        DisplayHome()
     End Sub
 
     Private Sub lblHome_Click(sender As Object, e As EventArgs) Handles lblHome.Click
-        lblDisplayStatus.Visible = True
-        txtRecordLength.Visible = False
-        listRecordings.Visible = False
-        btnSave.Visible = True
-        lblSave.Visible = True
-        btnPlay.Visible = True
+        DisplayHome()
     End Sub
 
     Private Sub imgSettings_Click(sender As Object, e As EventArgs) Handles imgSettings.Click
-        lblDisplayStatus.Visible = False
-        txtRecordLength.Visible = True
-        listRecordings.Visible = False
-        btnSave.Visible = False
-        lblSave.Visible = False
-        btnPlay.Visible = True
+        DisplaySettings()
     End Sub
 
     Private Sub lblSettings_Click(sender As Object, e As EventArgs) Handles lblSettings.Click
-        lblDisplayStatus.Visible = False
-        txtRecordLength.Visible = True
-        listRecordings.Visible = False
-        btnSave.Visible = False
-        lblSave.Visible = False
-        btnPlay.Visible = True
+        DisplaySettings()
     End Sub
 
 
@@ -152,19 +181,23 @@
         mciSendString("close recsound", "", 0, 0)
         MsgBox("File Created: " + finalStorePath + mydate + ".wav", MsgBoxStyle.OkOnly, "Success")
         My.Computer.Audio.Stop()
+
+        UpdateDirectory()
+
+        recordingRefresh = txtRecordLength.Text
+        countRecord = 0
+    End Sub
+
+    Private Sub UpdateDirectory()
         ' make a reference to a directory
         listRecordings.Items.Clear()
         Dim di As New IO.DirectoryInfo(storePATH + "\VopioAudioSnippets")
         Dim diar1 As IO.FileInfo() = di.GetFiles()
         Dim dra As IO.FileInfo
-
         'list the names of all files in the specified directory
         For Each dra In diar1
             listRecordings.Items.Add(dra)
-
         Next
-        recordingRefresh = txtRecordLength.Text
-        countRecord = 0
     End Sub
 
     Private Sub btnPlay_Click(sender As Object, e As EventArgs) Handles btnPlay.Click
@@ -174,4 +207,61 @@
         My.Computer.Audio.Play(audioPath, _
         AudioPlayMode.Background)
     End Sub
+
+    Private Sub btnTranscribe_Click(sender As Object, e As EventArgs) Handles btnTranscribe.Click
+        Dim currentAudio As String
+        Dim currentFile As String = listRecordings.SelectedItem.ToString
+        currentAudio = storePATH + "\VopioAudioSnippets\" + currentFile
+        recognizer.SetInputToWaveFile(currentAudio)
+        recognizer.RecognizeAsync(Recognition.RecognizeMode.Multiple)
+
+
+    End Sub
+
+    Public Sub GotSpeech(ByVal sender As Object, ByVal phrase As System.Speech.Recognition.SpeechRecognizedEventArgs) Handles recognizer.SpeechRecognized
+        MsgBox(phrase.Result.Text)
+        recognizer.Dispose() 'So that the file is release from the memory to be able to be deleted from the btnDelete
+    End Sub
+
+
+
+    Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
+        Dim currentAudio As String
+        Dim currentFile As String = listRecordings.SelectedItem.ToString
+        currentAudio = storePATH + "\VopioAudioSnippets\" + currentFile
+        'Code for Deleting (Assembla Ticket # 13)
+        My.Computer.FileSystem.DeleteFile(currentAudio,
+        Microsoft.VisualBasic.FileIO.UIOption.AllDialogs,
+        Microsoft.VisualBasic.FileIO.RecycleOption.DeletePermanently,
+        Microsoft.VisualBasic.FileIO.UICancelOption.DoNothing)
+
+        'After Deleting needs to update the listBox, so here is the code
+
+        UpdateDirectory()
+
+
+
+    End Sub
+
+
+    Private Sub trackRecordingLength_Scroll(sender As Object, e As EventArgs) Handles trackRecordingLength.Scroll
+        txtRecordLength.Text = trackRecordingLength.Value
+    End Sub
+
+    Private Sub btnUpdateRecordingLength_Click(sender As Object, e As EventArgs) Handles btnUpdateRecordingLength.Click
+
+        Dim lengthTo
+        lengthTo = trackRecordingLength.Value
+
+        txtRecordLength.Text = lengthTo
+
+        MsgBox("Recording Length has been updated to " + CStr(lengthTo) + " s")
+
+        'Restarting Recording
+        Timer1.Stop()
+        ResetRecord()
+
+    End Sub
 End Class
+
+
