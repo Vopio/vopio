@@ -6,6 +6,7 @@ Public Class home
     Dim countRecord = 0
     Dim storePATH
     Dim finalStorePath As String
+    Dim appDataPath As String
     Private Declare Function mciSendString Lib "winmm.dll" _
     Alias "mciSendStringA" _
     (ByVal lpstrCommand As String, _
@@ -19,21 +20,42 @@ Public Class home
     Public WithEvents recognizer As New Speech.Recognition.SpeechRecognitionEngine
     Dim gram As New System.Speech.Recognition.DictationGrammar()
 
+    Public Sub configureApp()
 
-
-
-    Private Sub home_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        txtRecordLength.Text = "15"
+        appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
+        If My.Computer.FileSystem.DirectoryExists(appDataPath + "\vopio\config") Then
+            'MsgBox("Config File Exist! with Default Data at " + appDataPath + "\vopio\config\")
+        Else
+            My.Computer.FileSystem.CreateDirectory(appDataPath + "\vopio\config")
+            My.Computer.FileSystem.WriteAllText(appDataPath + "\vopio\config\recordingLength.txt", "20", True)
+            getDesktopStorePath()
+            My.Computer.FileSystem.WriteAllText(appDataPath + "\vopio\config\storePATH.txt", finalStorePath, True)
+            'MsgBox("Config File Created with Default Data at " + appDataPath + "\vopio\config\")
+        End If
+        getRecordLength()
         recordingRefresh = txtRecordLength.Text
         Timer1.Interval = 1000
         Timer1.Start()
+        
+        recognizer.LoadGrammar(gram)
+
+    End Sub
+
+    Public Sub getRecordLength()
+        Dim fileReader As String
+        fileReader = My.Computer.FileSystem.ReadAllText(appDataPath + "\vopio\config\recordingLength.txt")
+        txtRecordLength.Text = fileReader
+    End Sub
+    Public Sub getDesktopStorePath()
         Dim s As String = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
         storePATH = s
         My.Computer.FileSystem.CreateDirectory(s + "\VopioAudioSnippets\")
         finalStorePath = s + "\VopioAudioSnippets\"
-        recognizer.LoadGrammar(gram)
+    End Sub
 
 
+    Private Sub home_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        configureApp()
     End Sub
 
     Private Sub RecordSound()
@@ -93,6 +115,7 @@ Public Class home
     Private Sub imgSavedWords_Click(sender As Object, e As EventArgs) Handles imgSavedWords.Click
         DisplaySavedWords()
     End Sub
+
     Private Sub lblSavedWords_Click(sender As Object, e As EventArgs) Handles lblSavedWords.Click
         DisplaySavedWords()
     End Sub
@@ -149,13 +172,13 @@ Public Class home
         btnTranscribe.Visible = False
         btnDelete.Visible = False
 
-       'Home False
+        'Home False
         btnSave.Visible = False
         lblSave.Visible = False
 
 
     End Sub
-    
+
 
     Private Sub imgHome_Click(sender As Object, e As EventArgs) Handles imgHome.Click
         DisplayHome()
@@ -189,9 +212,11 @@ Public Class home
     End Sub
 
     Private Sub UpdateDirectory()
+
+        getDesktopStorePath()
         ' make a reference to a directory
         listRecordings.Items.Clear()
-        Dim di As New IO.DirectoryInfo(storePATH + "\VopioAudioSnippets")
+        Dim di As New IO.DirectoryInfo(finalStorePath)
         Dim diar1 As IO.FileInfo() = di.GetFiles()
         Dim dra As IO.FileInfo
         'list the names of all files in the specified directory
@@ -239,10 +264,11 @@ Public Class home
 
         UpdateDirectory()
 
-
-
     End Sub
 
+    Public Sub setRecordLength(rLength As String)
+        My.Computer.FileSystem.WriteAllText(appDataPath + "\vopio\config\recordingLength.txt", rLength, False)
+    End Sub
 
     Private Sub trackRecordingLength_Scroll(sender As Object, e As EventArgs) Handles trackRecordingLength.Scroll
         txtRecordLength.Text = trackRecordingLength.Value
@@ -257,10 +283,17 @@ Public Class home
 
         MsgBox("Recording Length has been updated to " + CStr(lengthTo) + " s")
 
+        setRecordLength(lengthTo)
+
         'Restarting Recording
         Timer1.Stop()
         ResetRecord()
 
+    End Sub
+
+    Private Sub linkVopioWeb_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles linkVopioWeb.LinkClicked
+        Dim url As String = "http://www.vopio.info"
+        Process.Start(url)
     End Sub
 End Class
 
