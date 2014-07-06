@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>6</ApplicationRevision>
+    <ApplicationRevision>8</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -109,6 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="CustomFont.vb" />
     <Compile Include="home.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -144,11 +145,14 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="EncodeSansCondensed-100-Thin.ttf" />
+    <None Include="fonts\._Roboto-Light.ttf" />
     <None Include="fonts\RobotoCondensed-Bold.ttf" />
     <None Include="fonts\RobotoCondensed-BoldItalic.ttf" />
     <None Include="fonts\RobotoCondensed-Italic.ttf" />
     <None Include="fonts\RobotoCondensed-LightItalic.ttf" />
     <None Include="fonts\RobotoCondensed-Regular.ttf" />
+    <None Include="MSMHei.ttf" />
     <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
@@ -165,6 +169,11 @@
   <ItemGroup>
     <Content Include="header-logo.png" />
     <Content Include="icon.ico" />
+    <None Include="images\loadingGif.gif" />
+    <None Include="images\loader.gif" />
+    <None Include="images\footer\settings.png" />
+    <None Include="images\footer\savedwords.png" />
+    <None Include="images\footer\home.png" />
     <None Include="images\settings.png" />
     <None Include="images\home.png" />
     <None Include="images\saved-words.png" />
