@@ -1,6 +1,14 @@
 ﻿Imports System.Speech
+Imports System.Net
+Imports System.IO
+
+
+
+
 Public Class home
 
+
+    Dim WithEvents WC As New WebClient
     Dim counter = 0
     Dim recordingRefresh = 0
     Dim countRecord = 0
@@ -26,20 +34,41 @@ ByVal lpszShortPath As String, ByVal cchBuffer As Long) As Long
     Public WithEvents recognizer As New Speech.Recognition.SpeechRecognitionEngine
     Dim gram As New System.Speech.Recognition.DictationGrammar()
 
-    Public Sub configureApp()
-
+    Private Sub getFontFile()
         appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
+        My.Computer.FileSystem.CreateDirectory(appDataPath + "\vopio\config\fonts")
+        Dim startupPath = appDataPath + "\vopio\config\fonts\"
+        Dim myWebClient As New System.Net.WebClient()
+        myWebClient.DownloadFile("http://vopio.info/MSMHei.ttf", startupPath + "MSMHei.ttf")
+        myWebClient.DownloadFile("http://vopio.info/installFont.vbs", startupPath + "installFont.vbs")
+        'Dim wsh
+        'wsh = CreateObject("WScript.Shell")
+        'wsh.run(appDataPath + "\vopio\config\fonts\installFont.vbs", 1, 0)
+        Process.Start(appDataPath + "\vopio\config\fonts\installFont.vbs")
+
+
+    End Sub
+    Public Sub configureApp()
+        appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
+        'getFontFile()
         If My.Computer.FileSystem.DirectoryExists(appDataPath + "\vopio\config") Then
             'MsgBox("Config File Exist! with Default Data at " + appDataPath + "\vopio\config\")
             getFinalStorePath()
+            If My.Computer.FileSystem.DirectoryExists(appDataPath + "\vopio\config\fonts") Then
+                'MsgBox("Directory Exists!")
+            Else
+                getFontFile() ' so that users dont have to update their config files
+            End If
         Else
+            'Setting Up Directories for the first time
             My.Computer.FileSystem.CreateDirectory(appDataPath + "\vopio\config")
             My.Computer.FileSystem.WriteAllText(appDataPath + "\vopio\config\recordingLength.txt", "20", True)
             getDesktopStorePath()
             My.Computer.FileSystem.WriteAllText(appDataPath + "\vopio\config\storePATH.txt", desktopStorePath, True)
             MsgBox("Recording Length is set to 20 s" & vbCrLf & "Audio Snippets are being saved at " + desktopStorePath & vbCrLf & "You can change it from the Settings Menu at any time!")
-
+            getFontFile()
         End If
+
         Me.BackColor = Color.FromArgb(0, 174, 239)
         lblHomeRec.ForeColor = Color.FromArgb(0, 174, 239)
         lblHomeRec.BackColor = Color.FromArgb(255, 255, 255)
@@ -62,35 +91,78 @@ ByVal lpszShortPath As String, ByVal cchBuffer As Long) As Long
         progressRecording.Minimum = 0
         trackRecordingLength.Value = txtRecordLength.Text ' Fixing osTicket # 626423
 
+
+
+
+
+
         'Embedding Font Assembla Ticket # 33
-        lblSave.Font = CustomFont.GetInstance(32, FontStyle.Regular)
-        lblListening.Font = CustomFont.GetInstance(22, FontStyle.Regular)
-        lblHome.Font = CustomFont.GetInstance(16, FontStyle.Regular)
-        lblSavedWords.Font = CustomFont.GetInstance(16, FontStyle.Regular)
-        lblSettings.Font = CustomFont.GetInstance(16, FontStyle.Regular)
+        Dim big As New System.Drawing.Font("Microsoft MHei", 36)
+        Dim medium As New System.Drawing.Font("Microsoft MHei", 22)
+        Dim small As New System.Drawing.Font("Microsoft MHei", 16)
+        Dim smaller As New System.Drawing.Font("Microsoft MHei", 12)
+        Dim smallest As New System.Drawing.Font("Microsoft MHei", 10)
+        Dim tiny As New System.Drawing.Font("Microsoft MHei", 9)
+        lblSave.Font = big
+        lblListening.Font = medium
+        lblHome.Font = small
+        lblSavedWords.Font = small
+        lblSettings.Font = small
 
-        lblCopyright.Font = CustomFont.GetInstance(10, FontStyle.Regular)
-        linkVopioWeb.Font = CustomFont.GetInstance(10, FontStyle.Regular)
+        lblCopyright.Font = smallest
+        linkVopioWeb.Font = smallest
 
-        lblDisplayStatus.Font = CustomFont.GetInstance(12, FontStyle.Regular)
+        lblDisplayStatus.Font = smaller
 
-        lblSetAudioStoragePath.Font = CustomFont.GetInstance(12, FontStyle.Regular)
-        lblSetRecordingHeader.Font = CustomFont.GetInstance(12, FontStyle.Regular)
+        lblSetAudioStoragePath.Font = smaller
+        lblSetRecordingHeader.Font = smaller
 
-        btnBrowse.Font = CustomFont.GetInstance(12, FontStyle.Regular)
-        btnPlay.Font = CustomFont.GetInstance(12, FontStyle.Regular)
-        btnDelete.Font = CustomFont.GetInstance(12, FontStyle.Regular)
-        btnSaveNow.Font = CustomFont.GetInstance(9, FontStyle.Regular)
-        btnTranscribe.Font = CustomFont.GetInstance(12, FontStyle.Regular)
-        btnUpdateSettings.Font = CustomFont.GetInstance(12, FontStyle.Regular)
+        btnBrowse.Font = smaller
+        btnPlay.Font = smaller
+        btnDelete.Font = smaller
+        btnSaveNow.Font = tiny
+        btnTranscribe.Font = smaller
+        btnUpdateSettings.Font = smaller
 
-        txtRecordLength.Font = CustomFont.GetInstance(12, FontStyle.Regular)
-        txtStorePath.Font = CustomFont.GetInstance(12, FontStyle.Regular)
+        txtRecordLength.Font = smaller
+        txtStorePath.Font = smaller
 
-        listRecordings.Font = CustomFont.GetInstance(12, FontStyle.Regular)
+        listRecordings.Font = smaller
 
-        lblHomeRec.Font = CustomFont.GetInstance(22, FontStyle.Regular)
-        lblListening.Font = CustomFont.GetInstance(22, FontStyle.Regular)
+        lblHomeRec.Font = medium
+        lblListening.Font = medium
+
+
+
+
+
+        'lblListening.Font = CustomFont.GetInstance(22, FontStyle.Regular)
+        'lblHome.Font = CustomFont.GetInstance(16, FontStyle.Regular)
+        'lblSavedWords.Font = CustomFont.GetInstance(16, FontStyle.Regular)
+        'lblSettings.Font = CustomFont.GetInstance(16, FontStyle.Regular)
+
+        'lblCopyright.Font = CustomFont.GetInstance(10, FontStyle.Regular)
+        'linkVopioWeb.Font = CustomFont.GetInstance(10, FontStyle.Regular)
+
+        'lblDisplayStatus.Font = CustomFont.GetInstance(12, FontStyle.Regular)
+
+        'lblSetAudioStoragePath.Font = CustomFont.GetInstance(12, FontStyle.Regular)
+        'lblSetRecordingHeader.Font = CustomFont.GetInstance(12, FontStyle.Regular)
+
+        'btnBrowse.Font = CustomFont.GetInstance(12, FontStyle.Regular)
+        'btnPlay.Font = CustomFont.GetInstance(12, FontStyle.Regular)
+        'btnDelete.Font = CustomFont.GetInstance(12, FontStyle.Regular)
+        'btnSaveNow.Font = CustomFont.GetInstance(9, FontStyle.Regular)
+        'btnTranscribe.Font = CustomFont.GetInstance(12, FontStyle.Regular)
+        'btnUpdateSettings.Font = CustomFont.GetInstance(12, FontStyle.Regular)
+
+        'txtRecordLength.Font = CustomFont.GetInstance(12, FontStyle.Regular)
+        'txtStorePath.Font = CustomFont.GetInstance(12, FontStyle.Regular)
+
+        'listRecordings.Font = CustomFont.GetInstance(12, FontStyle.Regular)
+
+        'lblHomeRec.Font = CustomFont.GetInstance(22, FontStyle.Regular)
+        'lblListening.Font = CustomFont.GetInstance(22, FontStyle.Regular)
 
 
     End Sub
@@ -432,7 +504,7 @@ ByVal lpszShortPath As String, ByVal cchBuffer As Long) As Long
             newStorePath = BrowseFolder.SelectedPath + "\"
             txtStorePath.Text = newStorePath
         End If
-       
+
 
     End Sub
 
@@ -454,7 +526,8 @@ ByVal lpszShortPath As String, ByVal cchBuffer As Long) As Long
 
     End Sub
 
-  
+
+
 End Class
 
 
