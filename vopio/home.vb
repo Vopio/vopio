@@ -9,6 +9,7 @@ Public Class home
 
 
     Dim WithEvents WC As New WebClient
+
     Dim counter = 0
     Dim recordingRefresh = 0
     Dim countRecord = 0
@@ -16,6 +17,10 @@ Public Class home
     Dim desktopStorePath As String
     Dim finalStorePath As String
     Dim appDataPath As String
+
+    Dim settingsRecordingLength
+    Dim settingsStorePath
+
     Private Declare Function mciSendString Lib "winmm.dll" _
     Alias "mciSendStringA" _
     (ByVal lpstrCommand As String, _
@@ -39,11 +44,9 @@ ByVal lpszShortPath As String, ByVal cchBuffer As Long) As Long
         My.Computer.FileSystem.CreateDirectory(appDataPath + "\vopio\config\fonts")
         Dim startupPath = appDataPath + "\vopio\config\fonts\"
         Dim myWebClient As New System.Net.WebClient()
+        'Need to create a logic here to check for internet connection
         myWebClient.DownloadFile("http://vopio.info/MSMHei.ttf", startupPath + "MSMHei.ttf")
         myWebClient.DownloadFile("http://vopio.info/installFont.vbs", startupPath + "installFont.vbs")
-        'Dim wsh
-        'wsh = CreateObject("WScript.Shell")
-        'wsh.run(appDataPath + "\vopio\config\fonts\installFont.vbs", 1, 0)
         Process.Start(appDataPath + "\vopio\config\fonts\installFont.vbs")
 
 
@@ -120,8 +123,11 @@ ByVal lpszShortPath As String, ByVal cchBuffer As Long) As Long
         btnBrowse.Font = smaller
         btnPlay.Font = smaller
         btnDelete.Font = smaller
-        btnSaveNow.Font = tiny
+        btnAddNotes.Font = smaller
+        btnOpenNotes.Font = smaller
+        btnSaveNow.Font = smaller ' Assitional font size improvemenbt from ticket # 640586
         btnTranscribe.Font = smaller
+        btnShowInFolder.Font = smaller
         btnUpdateSettings.Font = smaller
 
         txtRecordLength.Font = smaller
@@ -131,6 +137,10 @@ ByVal lpszShortPath As String, ByVal cchBuffer As Long) As Long
 
         lblHomeRec.Font = medium
         lblListening.Font = medium
+
+        'Fixing osTicket # 347172 creating a check to see if settings updated then remind user to update settings
+        settingsRecordingLength = txtRecordLength.Text
+        settingsStorePath = txtStorePath.Text
 
 
 
@@ -163,6 +173,7 @@ ByVal lpszShortPath As String, ByVal cchBuffer As Long) As Long
 
         'lblHomeRec.Font = CustomFont.GetInstance(22, FontStyle.Regular)
         'lblListening.Font = CustomFont.GetInstance(22, FontStyle.Regular)
+
 
 
     End Sub
@@ -253,20 +264,16 @@ ByVal lpszShortPath As String, ByVal cchBuffer As Long) As Long
         ElapsedSeconds += 1
     End Sub
 
-    'SavedWords UI
-    Private Sub imgSavedWords_Click(sender As Object, e As EventArgs) Handles imgSavedWords.Click
-        DisplaySavedWords()
-    End Sub
-
-    Private Sub lblSavedWords_Click(sender As Object, e As EventArgs) Handles lblSavedWords.Click
-        DisplaySavedWords()
-    End Sub
+    
 
     Private Sub DisplaySavedWords()
         listRecordings.Visible = True
         btnPlay.Visible = True
         btnTranscribe.Visible = True
+        btnShowInFolder.Visible = True
         btnDelete.Visible = True
+        btnAddNotes.Visible = True
+        btnOpenNotes.Visible = True
         lblDisplayStatus.Visible = True
         btnSaveNow.Visible = True
 
@@ -286,6 +293,11 @@ ByVal lpszShortPath As String, ByVal cchBuffer As Long) As Long
         imgBody.Visible = False
         lblHomeRec.Visible = False
         lblHomeRec.Visible = False
+
+        'Fixing osTicket # 347172 creating a check to see if settings updated then remind user to update settings
+        lblSettings.Visible = True
+        imgSettings.Enabled = True
+        lblSettingsDummy.Visible = False
 
 
         'Assembla Ticket # 11 Implementation: Listings should always be updated
@@ -305,7 +317,10 @@ ByVal lpszShortPath As String, ByVal cchBuffer As Long) As Long
         listRecordings.Visible = False
         btnPlay.Visible = False
         btnTranscribe.Visible = False
+        btnShowInFolder.Visible = False
         btnDelete.Visible = False
+        btnAddNotes.Visible = False
+        btnOpenNotes.Visible = False
 
         'Settings False
         txtRecordLength.Visible = False
@@ -315,6 +330,12 @@ ByVal lpszShortPath As String, ByVal cchBuffer As Long) As Long
         lblSetAudioStoragePath.Visible = False
         txtStorePath.Visible = False
         btnBrowse.Visible = False
+
+        'Fixing osTicket # 347172 creating a check to see if settings updated then remind user to update settings
+        lblSettings.Visible = True
+        imgSettings.Enabled = True
+        lblSettingsDummy.Visible = False
+
     End Sub
 
     Private Sub DisplaySettings()
@@ -330,6 +351,12 @@ ByVal lpszShortPath As String, ByVal cchBuffer As Long) As Long
         txtStorePath.Text = finalStorePath
         trackRecordingLength.Value = txtRecordLength.Text ' Fixing osTicket # 626423
 
+        'Fixing osTicket # 347172 creating a check to see if settings updated then remind user to update settings
+        lblSettings.Visible = False
+        imgSettings.Enabled = False
+        lblSettingsDummy.Visible = True
+
+
 
         lblDisplayStatus.Visible = True
         btnSaveNow.Visible = True
@@ -338,7 +365,10 @@ ByVal lpszShortPath As String, ByVal cchBuffer As Long) As Long
         listRecordings.Visible = False
         btnPlay.Visible = False
         btnTranscribe.Visible = False
+        btnShowInFolder.Visible = False
         btnDelete.Visible = False
+        btnAddNotes.Visible = False
+        btnOpenNotes.Visible = False
 
         'Home False
         btnSave.Visible = False
@@ -352,20 +382,294 @@ ByVal lpszShortPath As String, ByVal cchBuffer As Long) As Long
     End Sub
 
 
+    'SavedWords UI
+    Private Sub imgSavedWords_Click(sender As Object, e As EventArgs) Handles imgSavedWords.Click
+        'Fixing osTicket # 347172 creating a check to see if settings updated then remind user to update settings
+        If (settingsRecordingLength = txtRecordLength.Text) Then
+            If (settingsStorePath = txtStorePath.Text) Then
+                DisplaySavedWords()
+            Else
+                If MsgBox("You tried to update your Recording Length. Would you like to update it?" & vbCrLf & "Click on Yes button to update!" & vbCrLf & "Press No/Cancel buttons if you do not want to!", MsgBoxStyle.YesNoCancel, "vopio") = MsgBoxResult.Yes Then
+                    Dim lengthTo
+                    lengthTo = trackRecordingLength.Value
+
+                    txtRecordLength.Text = lengthTo
+                    trackRecordingLength.Value = txtRecordLength.Text ' Fixing osTicket # 626423
+
+                    If (newStorePath = "") Then
+                    Else
+                        setStorePath(newStorePath)
+                    End If
+
+                    setRecordLength(lengthTo)
+
+                    'Restarting Recording
+                    Timer1.Stop()
+                    ResetRecord()
+
+                    ' MsgBox("Recording Length has been updated to " + CStr(lengthTo) + " s")
+                    ' MsgBox("Audio Snippets Storage has been set to the following location: " & vbCrLf & newStorePath)
+                    MsgBox("Your Settings have been updated!")
+
+                    'Fixing osTicket # 347172 creating a check to see if settings updated then remind user to update settings
+                    settingsRecordingLength = txtRecordLength.Text
+                    settingsStorePath = txtStorePath.Text
+                Else
+                    MsgBox("Update Cancelled!")
+                    DisplaySavedWords()
+                End If
+            End If
+        Else
+            If MsgBox("You tried to update your Recording Length. Would you like to update it?" & vbCrLf & "Click on Yes button to update!" & vbCrLf & "Press No/Cancel buttons if you do not want to!", MsgBoxStyle.YesNoCancel, "vopio") = MsgBoxResult.Yes Then
+                Dim lengthTo
+                lengthTo = trackRecordingLength.Value
+
+                txtRecordLength.Text = lengthTo
+                trackRecordingLength.Value = txtRecordLength.Text ' Fixing osTicket # 626423
+
+                If (newStorePath = "") Then
+                Else
+                    setStorePath(newStorePath)
+                End If
+
+                setRecordLength(lengthTo)
+
+                'Restarting Recording
+                Timer1.Stop()
+                ResetRecord()
+
+                ' MsgBox("Recording Length has been updated to " + CStr(lengthTo) + " s")
+                ' MsgBox("Audio Snippets Storage has been set to the following location: " & vbCrLf & newStorePath)
+                MsgBox("Your Settings have been updated!")
+
+                'Fixing osTicket # 347172 creating a check to see if settings updated then remind user to update settings
+                settingsRecordingLength = txtRecordLength.Text
+                settingsStorePath = txtStorePath.Text
+            Else
+                MsgBox("Update Cancelled!")
+                DisplaySavedWords()
+            End If
+        End If
+    End Sub
+
+    Private Sub lblSavedWords_Click(sender As Object, e As EventArgs) Handles lblSavedWords.Click
+        'Fixing osTicket # 347172 creating a check to see if settings updated then remind user to update settings
+        If (settingsRecordingLength = txtRecordLength.Text) Then
+            If (settingsStorePath = txtStorePath.Text) Then
+                DisplaySavedWords()
+            Else
+                If MsgBox("You tried to update your Recording Length. Would you like to update it?" & vbCrLf & "Click on Yes button to update!" & vbCrLf & "Press No/Cancel buttons if you do not want to!", MsgBoxStyle.YesNoCancel, "vopio") = MsgBoxResult.Yes Then
+                    Dim lengthTo
+                    lengthTo = trackRecordingLength.Value
+
+                    txtRecordLength.Text = lengthTo
+                    trackRecordingLength.Value = txtRecordLength.Text ' Fixing osTicket # 626423
+
+                    If (newStorePath = "") Then
+                    Else
+                        setStorePath(newStorePath)
+                    End If
+
+                    setRecordLength(lengthTo)
+
+                    'Restarting Recording
+                    Timer1.Stop()
+                    ResetRecord()
+
+                    ' MsgBox("Recording Length has been updated to " + CStr(lengthTo) + " s")
+                    ' MsgBox("Audio Snippets Storage has been set to the following location: " & vbCrLf & newStorePath)
+                    MsgBox("Your Settings have been updated!")
+
+                    'Fixing osTicket # 347172 creating a check to see if settings updated then remind user to update settings
+                    settingsRecordingLength = txtRecordLength.Text
+                    settingsStorePath = txtStorePath.Text
+                Else
+                    MsgBox("Update Cancelled!")
+                    DisplaySavedWords()
+                End If
+            End If
+        Else
+            If MsgBox("You tried to update your Recording Length. Would you like to update it?" & vbCrLf & "Click on Yes button to update!" & vbCrLf & "Press No/Cancel buttons if you do not want to!", MsgBoxStyle.YesNoCancel, "vopio") = MsgBoxResult.Yes Then
+                Dim lengthTo
+                lengthTo = trackRecordingLength.Value
+
+                txtRecordLength.Text = lengthTo
+                trackRecordingLength.Value = txtRecordLength.Text ' Fixing osTicket # 626423
+
+                If (newStorePath = "") Then
+                Else
+                    setStorePath(newStorePath)
+                End If
+
+                setRecordLength(lengthTo)
+
+                'Restarting Recording
+                Timer1.Stop()
+                ResetRecord()
+
+                ' MsgBox("Recording Length has been updated to " + CStr(lengthTo) + " s")
+                ' MsgBox("Audio Snippets Storage has been set to the following location: " & vbCrLf & newStorePath)
+                MsgBox("Your Settings have been updated!")
+
+                'Fixing osTicket # 347172 creating a check to see if settings updated then remind user to update settings
+                settingsRecordingLength = txtRecordLength.Text
+                settingsStorePath = txtStorePath.Text
+            Else
+                MsgBox("Update Cancelled!")
+                DisplaySavedWords()
+            End If
+        End If
+    End Sub
     Private Sub imgHome_Click(sender As Object, e As EventArgs) Handles imgHome.Click
-        DisplayHome()
+        'Fixing osTicket # 347172 creating a check to see if settings updated then remind user to update settings
+        If (settingsRecordingLength = txtRecordLength.Text) Then
+            If (settingsStorePath = txtStorePath.Text) Then
+                DisplayHome()  'fixing ticket # 184811
+            Else
+                If MsgBox("You tried to update your Recording Length. Would you like to update it?" & vbCrLf & "Click on Yes button to update!" & vbCrLf & "Press No/Cancel buttons if you do not want to!", MsgBoxStyle.YesNoCancel, "vopio") = MsgBoxResult.Yes Then
+                    Dim lengthTo
+                    lengthTo = trackRecordingLength.Value
+
+                    txtRecordLength.Text = lengthTo
+                    trackRecordingLength.Value = txtRecordLength.Text ' Fixing osTicket # 626423
+
+                    If (newStorePath = "") Then
+                    Else
+                        setStorePath(newStorePath)
+                    End If
+
+                    setRecordLength(lengthTo)
+
+                    'Restarting Recording
+                    Timer1.Stop()
+                    ResetRecord()
+
+                    ' MsgBox("Recording Length has been updated to " + CStr(lengthTo) + " s")
+                    ' MsgBox("Audio Snippets Storage has been set to the following location: " & vbCrLf & newStorePath)
+                    MsgBox("Your Settings have been updated!")
+
+                    'Fixing osTicket # 347172 creating a check to see if settings updated then remind user to update settings
+                    settingsRecordingLength = txtRecordLength.Text
+                    settingsStorePath = txtStorePath.Text
+                Else
+                    MsgBox("Update Cancelled!")
+                    DisplayHome() 'fixing ticket # 184811
+                End If
+            End If
+        Else
+            If MsgBox("You tried to update your Recording Length. Would you like to update it?" & vbCrLf & "Click on Yes button to update!" & vbCrLf & "Press No/Cancel buttons if you do not want to!", MsgBoxStyle.YesNoCancel, "vopio") = MsgBoxResult.Yes Then
+                Dim lengthTo
+                lengthTo = trackRecordingLength.Value
+
+                txtRecordLength.Text = lengthTo
+                trackRecordingLength.Value = txtRecordLength.Text ' Fixing osTicket # 626423
+
+                If (newStorePath = "") Then
+                Else
+                    setStorePath(newStorePath)
+                End If
+
+                setRecordLength(lengthTo)
+
+                'Restarting Recording
+                Timer1.Stop()
+                ResetRecord()
+
+                ' MsgBox("Recording Length has been updated to " + CStr(lengthTo) + " s")
+                ' MsgBox("Audio Snippets Storage has been set to the following location: " & vbCrLf & newStorePath)
+                MsgBox("Your Settings have been updated!")
+
+                'Fixing osTicket # 347172 creating a check to see if settings updated then remind user to update settings
+                settingsRecordingLength = txtRecordLength.Text
+                settingsStorePath = txtStorePath.Text
+            Else
+                MsgBox("Update Cancelled!")
+                DisplayHome()  'fixing ticket # 184811
+            End If
+        End If
     End Sub
 
     Private Sub lblHome_Click(sender As Object, e As EventArgs) Handles lblHome.Click
-        DisplayHome()
+        'Fixing osTicket # 347172 creating a check to see if settings updated then remind user to update settings
+        If (settingsRecordingLength = txtRecordLength.Text) Then
+            If (settingsStorePath = txtStorePath.Text) Then
+                DisplayHome()
+            Else
+                If MsgBox("You tried to update your Store Path. Would you like to update it? Press No/Cancel if you do not want to!", MsgBoxStyle.YesNoCancel, "vopio") = MsgBoxResult.Yes Then
+                    Dim lengthTo
+                    lengthTo = trackRecordingLength.Value
+
+                    txtRecordLength.Text = lengthTo
+                    trackRecordingLength.Value = txtRecordLength.Text ' Fixing osTicket # 626423
+
+                    If (newStorePath = "") Then
+                    Else
+                        setStorePath(newStorePath)
+                    End If
+
+                    setRecordLength(lengthTo)
+
+                    'Restarting Recording
+                    Timer1.Stop()
+                    ResetRecord()
+
+                    ' MsgBox("Recording Length has been updated to " + CStr(lengthTo) + " s")
+                    ' MsgBox("Audio Snippets Storage has been set to the following location: " & vbCrLf & newStorePath)
+                    MsgBox("Your Settings have been updated!")
+
+                    'Fixing osTicket # 347172 creating a check to see if settings updated then remind user to update settings
+                    settingsRecordingLength = txtRecordLength.Text
+                    settingsStorePath = txtStorePath.Text
+                Else
+                    MsgBox("Update Cancelled!")
+                    DisplayHome()
+                End If
+            End If
+        Else
+            If MsgBox("You tried to update your Recording Length. Would you like to update it? Press No/Cancel if you do not want to!", MsgBoxStyle.YesNoCancel, "vopio") = MsgBoxResult.Yes Then
+                Dim lengthTo
+                lengthTo = trackRecordingLength.Value
+
+                txtRecordLength.Text = lengthTo
+                trackRecordingLength.Value = txtRecordLength.Text ' Fixing osTicket # 626423
+
+                If (newStorePath = "") Then
+                Else
+                    setStorePath(newStorePath)
+                End If
+
+                setRecordLength(lengthTo)
+
+                'Restarting Recording
+                Timer1.Stop()
+                ResetRecord()
+
+                ' MsgBox("Recording Length has been updated to " + CStr(lengthTo) + " s")
+                ' MsgBox("Audio Snippets Storage has been set to the following location: " & vbCrLf & newStorePath)
+                MsgBox("Your Settings have been updated!")
+
+                'Fixing osTicket # 347172 creating a check to see if settings updated then remind user to update settings
+                settingsRecordingLength = txtRecordLength.Text
+                settingsStorePath = txtStorePath.Text
+            Else
+                MsgBox("Update Cancelled!")
+                DisplayHome()
+            End If
+        End If
     End Sub
 
     Private Sub imgSettings_Click(sender As Object, e As EventArgs) Handles imgSettings.Click
         DisplaySettings()
+        'Fixing osTicket # 347172 creating a check to see if settings updated then remind user to update settings
+        settingsRecordingLength = txtRecordLength.Text
+        settingsStorePath = txtStorePath.Text
     End Sub
 
     Private Sub lblSettings_Click(sender As Object, e As EventArgs) Handles lblSettings.Click
         DisplaySettings()
+        'Fixing osTicket # 347172 creating a check to see if settings updated then remind user to update settings
+        settingsRecordingLength = txtRecordLength.Text
+        settingsStorePath = txtStorePath.Text
     End Sub
 
 
@@ -374,7 +678,21 @@ ByVal lpszShortPath As String, ByVal cchBuffer As Long) As Long
         Dim mydate As String = String.Format(Now.ToString("MMddyyyy_hhmmss"))
         mciSendString("save recsound " & """" & finalStorePath + mydate + ".wav" & """", "", 0, 0)
         mciSendString("close recsound", "", 0, 0)
-        MsgBox("File Created: " + finalStorePath + mydate + ".wav", MsgBoxStyle.OkOnly, "Success")
+        'MsgBox("File Created: " + finalStorePath + mydate + ".wav", MsgBoxStyle.OkOnly, "Success")
+        ' Implementing Assembla Ticket # 26
+        Dim result As Integer = MessageBox.Show("File Created: " + finalStorePath + mydate + ".wav" & vbCrLf & vbCrLf & "Would you like to rename this file?", "vopio | always learning", MessageBoxButtons.YesNoCancel)
+        If result = DialogResult.Cancel Then
+            MessageBox.Show("Cancel pressed")
+        ElseIf result = DialogResult.No Then
+            MessageBox.Show("No pressed")
+        ElseIf result = DialogResult.Yes Then
+            Dim Value As String
+            Value = InputBox("Enter a Name for this Audio Snippet:") + ".wav"
+            Dim oldValue As String = finalStorePath + mydate + ".wav"
+            Dim newValue As String = Value
+            'MsgBox(oldValue + " " + newValue)
+            My.Computer.FileSystem.RenameFile("""" & finalStorePath + mydate + ".wav" & """", newValue)
+        End If
         My.Computer.Audio.Stop()
 
         UpdateDirectory()
@@ -439,15 +757,21 @@ ByVal lpszShortPath As String, ByVal cchBuffer As Long) As Long
             Dim currentAudio As String
             Dim currentFile As String = listRecordings.SelectedItem.ToString
             currentAudio = finalStorePath + currentFile
-            'Code for Deleting (Assembla Ticket # 13)
-            My.Computer.FileSystem.DeleteFile(currentAudio,
-            Microsoft.VisualBasic.FileIO.UIOption.AllDialogs,
-            Microsoft.VisualBasic.FileIO.RecycleOption.DeletePermanently,
-            Microsoft.VisualBasic.FileIO.UICancelOption.DoNothing)
+            ' Fixing osTicket # 951786 checking for if file exists
+            If My.Computer.FileSystem.FileExists(currentAudio) Then
+                'Code for Deleting (Assembla Ticket # 13)
+                My.Computer.FileSystem.DeleteFile(currentAudio,
+                Microsoft.VisualBasic.FileIO.UIOption.AllDialogs,
+                Microsoft.VisualBasic.FileIO.RecycleOption.DeletePermanently,
+                Microsoft.VisualBasic.FileIO.UICancelOption.DoNothing)
 
-            'After Deleting needs to update the listBox, so here is the code
+                'After Deleting needs to update the listBox, so here is the code
+                UpdateDirectory()
+            Else
+                MsgBox("File not found.")
+                UpdateDirectory()
+            End If
 
-            UpdateDirectory()
         End If
 
     End Sub
@@ -487,6 +811,11 @@ ByVal lpszShortPath As String, ByVal cchBuffer As Long) As Long
         ' MsgBox("Audio Snippets Storage has been set to the following location: " & vbCrLf & newStorePath)
         MsgBox("Your Settings have been updated!")
 
+        'Fixing osTicket # 347172 creating a check to see if settings updated then remind user to update settings
+        settingsRecordingLength = txtRecordLength.Text
+        settingsStorePath = txtStorePath.Text
+
+
 
     End Sub
 
@@ -509,11 +838,26 @@ ByVal lpszShortPath As String, ByVal cchBuffer As Long) As Long
     End Sub
 
     Private Sub btnSaveNow_Click(sender As Object, e As EventArgs) Handles btnSaveNow.Click
+        ' Fixing Ticket # 640586
         counter += 1
         Dim mydate As String = String.Format(Now.ToString("MMddyyyy_hhmmss"))
         mciSendString("save recsound " & """" & finalStorePath + mydate + ".wav" & """", "", 0, 0)
         mciSendString("close recsound", "", 0, 0)
-        MsgBox("File Created: " + finalStorePath + mydate + ".wav", MsgBoxStyle.OkOnly, "Success")
+        'MsgBox("File Created: " + finalStorePath + mydate + ".wav", MsgBoxStyle.OkOnly, "Success")
+        ' Implementing Assembla Ticket # 26
+        Dim result As Integer = MessageBox.Show("File Created: " + finalStorePath + mydate + ".wav" & vbCrLf & vbCrLf & "Would you like to rename this file?", "vopio | always learning", MessageBoxButtons.YesNoCancel)
+        If result = DialogResult.Cancel Then
+            MessageBox.Show("Cancel pressed")
+        ElseIf result = DialogResult.No Then
+            MessageBox.Show("No pressed")
+        ElseIf result = DialogResult.Yes Then
+            Dim Value As String
+            Value = InputBox("Enter a Name for this Audio Snippet:") + ".wav"
+            Dim oldValue As String = finalStorePath + mydate + ".wav"
+            Dim newValue As String = Value
+            'MsgBox(oldValue + " " + newValue)
+            My.Computer.FileSystem.RenameFile("""" & finalStorePath + mydate + ".wav" & """", newValue)
+        End If
         My.Computer.Audio.Stop()
 
         UpdateDirectory()
@@ -522,12 +866,53 @@ ByVal lpszShortPath As String, ByVal cchBuffer As Long) As Long
         countRecord = 0
     End Sub
 
-    Private Sub lblCopyright_Click(sender As Object, e As EventArgs) Handles lblCopyright.Click
+    'Implementing Assembla Ticket # 42 
+    Private Sub btnShowInFolder_Click(sender As Object, e As EventArgs) Handles btnShowInFolder.Click
+        If (listRecordings.SelectedItems.Count = 0) Then        'Assembla # 19
+            MsgBox("Please Select a Recordig Snippet First!")
+        Else
+            Dim currentAudio As String
+            Dim currentFile As String = listRecordings.SelectedItem.ToString
+            currentAudio = finalStorePath + currentFile
+            Diagnostics.Process.Start("Explorer.exe", String.Format("/select,{0}", IO.Path.Combine(finalStorePath, currentFile)))
+        End If
 
     End Sub
 
+    Private Sub btnAddNotes_Click(sender As Object, e As EventArgs) Handles btnAddNotes.Click
+        'Implementing Assembla Ticket # 20
+        If (listRecordings.SelectedItems.Count = 0) Then        'Assembla # 19
+            MsgBox("Please Select a Recordig Snippet First!")
+        Else
+            Dim currentAudio As String
+            Dim currentFile As String = listRecordings.SelectedItem.ToString
+            currentAudio = finalStorePath + currentFile
+            Dim stringToBeInput As String
+            stringToBeInput = InputBox("Please enter the note for this wave file: " & vbCrLf & currentAudio)
+            My.Computer.FileSystem.WriteAllText(currentAudio + ".txt", stringToBeInput, True)
+            MsgBox("Note Created!")
+        End If
+    End Sub
 
+    Private Sub btnOpenNotes_Click(sender As Object, e As EventArgs) Handles btnOpenNotes.Click
+        'Implementing Assembla Ticket # 20
+        If (listRecordings.SelectedItems.Count = 0) Then        'Assembla # 19
+            MsgBox("Please Select a Recordig Snippet First!")
+        Else
+            Dim currentAudio As String
+            Dim currentFile As String = listRecordings.SelectedItem.ToString
+            currentAudio = finalStorePath + currentFile + ".txt"
 
+            If My.Computer.FileSystem.FileExists(currentAudio) Then
+                Dim fileReader As String
+                fileReader = My.Computer.FileSystem.ReadAllText(currentAudio, System.Text.Encoding.UTF32)
+                MsgBox(fileReader)
+            Else
+                MsgBox("You have not added a Note to this Audio Snippet yet. Please click Add Notes button to add a note to it.")
+            End If
+            
+        End If
+    End Sub
 End Class
 
 
