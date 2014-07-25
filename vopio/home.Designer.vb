@@ -47,17 +47,18 @@ Partial Class home
         Me.btnSaveNow = New System.Windows.Forms.Button()
         Me.lblHomeRec = New System.Windows.Forms.Label()
         Me.bodyPanel = New System.Windows.Forms.Panel()
+        Me.btnOpenNotes = New System.Windows.Forms.Button()
+        Me.btnAddNotes = New System.Windows.Forms.Button()
+        Me.btnShowInFolder = New System.Windows.Forms.Button()
         Me.lblListening = New System.Windows.Forms.Label()
         Me.imgBody = New System.Windows.Forms.PictureBox()
+        Me.lblSettingsDummy = New System.Windows.Forms.Label()
+        Me.lblVersion = New System.Windows.Forms.LinkLabel()
         Me.imgSettings = New System.Windows.Forms.PictureBox()
         Me.imgHome = New System.Windows.Forms.PictureBox()
         Me.imgSavedWords = New System.Windows.Forms.PictureBox()
-        Me.imgHeaderLogo = New System.Windows.Forms.PictureBox()
-        Me.lblSettingsDummy = New System.Windows.Forms.Label()
-        Me.btnShowInFolder = New System.Windows.Forms.Button()
-        Me.btnAddNotes = New System.Windows.Forms.Button()
         Me.btnSave = New System.Windows.Forms.Button()
-        Me.btnOpenNotes = New System.Windows.Forms.Button()
+        Me.imgHeaderLogo = New System.Windows.Forms.PictureBox()
         CType(Me.trackRecordingLength, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.bodyPanel.SuspendLayout()
         CType(Me.imgBody, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -74,11 +75,11 @@ Partial Class home
         Me.lblDisplayStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.lblDisplayStatus.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblDisplayStatus.ForeColor = System.Drawing.Color.White
-        Me.lblDisplayStatus.Location = New System.Drawing.Point(121, 111)
+        Me.lblDisplayStatus.Location = New System.Drawing.Point(87, 111)
         Me.lblDisplayStatus.Name = "lblDisplayStatus"
-        Me.lblDisplayStatus.Size = New System.Drawing.Size(121, 23)
+        Me.lblDisplayStatus.Size = New System.Drawing.Size(185, 23)
         Me.lblDisplayStatus.TabIndex = 3
-        Me.lblDisplayStatus.Text = "learning last 0 s"
+        Me.lblDisplayStatus.Text = "learning the previous 0 s"
         Me.lblDisplayStatus.UseCompatibleTextRendering = True
         Me.lblDisplayStatus.Visible = False
         '
@@ -97,6 +98,7 @@ Partial Class home
         '
         'txtRecordLength
         '
+        Me.txtRecordLength.Enabled = False
         Me.txtRecordLength.Font = New System.Drawing.Font("Arial Narrow", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtRecordLength.Location = New System.Drawing.Point(417, 209)
         Me.txtRecordLength.Name = "txtRecordLength"
@@ -115,6 +117,7 @@ Partial Class home
         Me.listRecordings.ItemHeight = 20
         Me.listRecordings.Location = New System.Drawing.Point(35, 20)
         Me.listRecordings.Name = "listRecordings"
+        Me.listRecordings.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
         Me.listRecordings.Size = New System.Drawing.Size(309, 304)
         Me.listRecordings.TabIndex = 6
         Me.listRecordings.Visible = False
@@ -140,7 +143,7 @@ Partial Class home
         Me.lblHome.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.lblHome.Font = New System.Drawing.Font("Microsoft MHei", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblHome.ForeColor = System.Drawing.Color.White
-        Me.lblHome.Location = New System.Drawing.Point(202, 635)
+        Me.lblHome.Location = New System.Drawing.Point(204, 635)
         Me.lblHome.Name = "lblHome"
         Me.lblHome.Size = New System.Drawing.Size(68, 34)
         Me.lblHome.TabIndex = 12
@@ -202,13 +205,13 @@ Partial Class home
         Me.linkVopioWeb.ActiveLinkColor = System.Drawing.Color.White
         Me.linkVopioWeb.AutoSize = True
         Me.linkVopioWeb.DisabledLinkColor = System.Drawing.Color.White
-        Me.linkVopioWeb.Font = New System.Drawing.Font("Microsoft MHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.linkVopioWeb.Font = New System.Drawing.Font("Microsoft MHei", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.linkVopioWeb.ForeColor = System.Drawing.Color.White
         Me.linkVopioWeb.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
         Me.linkVopioWeb.LinkColor = System.Drawing.Color.White
-        Me.linkVopioWeb.Location = New System.Drawing.Point(349, 686)
+        Me.linkVopioWeb.Location = New System.Drawing.Point(368, 686)
         Me.linkVopioWeb.Name = "linkVopioWeb"
-        Me.linkVopioWeb.Size = New System.Drawing.Size(114, 27)
+        Me.linkVopioWeb.Size = New System.Drawing.Size(93, 22)
         Me.linkVopioWeb.TabIndex = 17
         Me.linkVopioWeb.TabStop = True
         Me.linkVopioWeb.Text = "www.vopio.info"
@@ -218,11 +221,11 @@ Partial Class home
         'lblCopyright
         '
         Me.lblCopyright.AutoSize = True
-        Me.lblCopyright.Font = New System.Drawing.Font("Microsoft MHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblCopyright.Font = New System.Drawing.Font("Microsoft MHei", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblCopyright.ForeColor = System.Drawing.Color.White
-        Me.lblCopyright.Location = New System.Drawing.Point(0, 686)
+        Me.lblCopyright.Location = New System.Drawing.Point(5, 686)
         Me.lblCopyright.Name = "lblCopyright"
-        Me.lblCopyright.Size = New System.Drawing.Size(148, 27)
+        Me.lblCopyright.Size = New System.Drawing.Size(121, 22)
         Me.lblCopyright.TabIndex = 18
         Me.lblCopyright.Text = "(C) 2014  Vopio LLC "
         Me.lblCopyright.UseCompatibleTextRendering = True
@@ -231,12 +234,12 @@ Partial Class home
         '
         Me.trackRecordingLength.Location = New System.Drawing.Point(187, 209)
         Me.trackRecordingLength.Maximum = 30
-        Me.trackRecordingLength.Minimum = 1
+        Me.trackRecordingLength.Minimum = 5
         Me.trackRecordingLength.Name = "trackRecordingLength"
         Me.trackRecordingLength.Size = New System.Drawing.Size(227, 45)
         Me.trackRecordingLength.TabIndex = 19
         Me.trackRecordingLength.TickFrequency = 5
-        Me.trackRecordingLength.Value = 1
+        Me.trackRecordingLength.Value = 5
         Me.trackRecordingLength.Visible = False
         '
         'lblSetRecordingHeader
@@ -311,7 +314,7 @@ Partial Class home
         Me.btnSaveNow.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSaveNow.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnSaveNow.ForeColor = System.Drawing.Color.White
-        Me.btnSaveNow.Location = New System.Drawing.Point(248, 111)
+        Me.btnSaveNow.Location = New System.Drawing.Point(277, 111)
         Me.btnSaveNow.Name = "btnSaveNow"
         Me.btnSaveNow.Size = New System.Drawing.Size(96, 23)
         Me.btnSaveNow.TabIndex = 26
@@ -325,11 +328,11 @@ Partial Class home
         Me.lblHomeRec.AutoSize = True
         Me.lblHomeRec.BackColor = System.Drawing.Color.Transparent
         Me.lblHomeRec.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.lblHomeRec.Font = New System.Drawing.Font("Microsoft MHei", 21.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblHomeRec.Font = New System.Drawing.Font("Microsoft MHei", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblHomeRec.ForeColor = System.Drawing.Color.White
-        Me.lblHomeRec.Location = New System.Drawing.Point(200, 312)
+        Me.lblHomeRec.Location = New System.Drawing.Point(204, 314)
         Me.lblHomeRec.Name = "lblHomeRec"
-        Me.lblHomeRec.Size = New System.Drawing.Size(46, 46)
+        Me.lblHomeRec.Size = New System.Drawing.Size(38, 38)
         Me.lblHomeRec.TabIndex = 29
         Me.lblHomeRec.Text = "0 s"
         Me.lblHomeRec.UseCompatibleTextRendering = True
@@ -352,6 +355,42 @@ Partial Class home
         Me.bodyPanel.Size = New System.Drawing.Size(464, 378)
         Me.bodyPanel.TabIndex = 30
         '
+        'btnOpenNotes
+        '
+        Me.btnOpenNotes.Font = New System.Drawing.Font("Arial Narrow", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnOpenNotes.Location = New System.Drawing.Point(363, 79)
+        Me.btnOpenNotes.Name = "btnOpenNotes"
+        Me.btnOpenNotes.Size = New System.Drawing.Size(73, 48)
+        Me.btnOpenNotes.TabIndex = 34
+        Me.btnOpenNotes.Text = "Open Notes"
+        Me.btnOpenNotes.UseCompatibleTextRendering = True
+        Me.btnOpenNotes.UseVisualStyleBackColor = True
+        Me.btnOpenNotes.Visible = False
+        '
+        'btnAddNotes
+        '
+        Me.btnAddNotes.Font = New System.Drawing.Font("Arial Narrow", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnAddNotes.Location = New System.Drawing.Point(365, 18)
+        Me.btnAddNotes.Name = "btnAddNotes"
+        Me.btnAddNotes.Size = New System.Drawing.Size(73, 48)
+        Me.btnAddNotes.TabIndex = 33
+        Me.btnAddNotes.Text = "Add Notes"
+        Me.btnAddNotes.UseCompatibleTextRendering = True
+        Me.btnAddNotes.UseVisualStyleBackColor = True
+        Me.btnAddNotes.Visible = False
+        '
+        'btnShowInFolder
+        '
+        Me.btnShowInFolder.Font = New System.Drawing.Font("Arial Narrow", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnShowInFolder.Location = New System.Drawing.Point(364, 135)
+        Me.btnShowInFolder.Name = "btnShowInFolder"
+        Me.btnShowInFolder.Size = New System.Drawing.Size(73, 48)
+        Me.btnShowInFolder.TabIndex = 32
+        Me.btnShowInFolder.Text = "Show in Folder"
+        Me.btnShowInFolder.UseCompatibleTextRendering = True
+        Me.btnShowInFolder.UseVisualStyleBackColor = True
+        Me.btnShowInFolder.Visible = False
+        '
         'lblListening
         '
         Me.lblListening.AutoSize = True
@@ -359,11 +398,11 @@ Partial Class home
         Me.lblListening.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.lblListening.Font = New System.Drawing.Font("Arial", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblListening.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.lblListening.Location = New System.Drawing.Point(146, 12)
+        Me.lblListening.Location = New System.Drawing.Point(85, 18)
         Me.lblListening.Name = "lblListening"
-        Me.lblListening.Size = New System.Drawing.Size(186, 40)
+        Me.lblListening.Size = New System.Drawing.Size(312, 40)
         Me.lblListening.TabIndex = 31
-        Me.lblListening.Text = "learning last"
+        Me.lblListening.Text = "learning the previous"
         Me.lblListening.UseCompatibleTextRendering = True
         '
         'imgBody
@@ -378,6 +417,39 @@ Partial Class home
         Me.imgBody.Size = New System.Drawing.Size(436, 270)
         Me.imgBody.TabIndex = 1
         Me.imgBody.TabStop = False
+        '
+        'lblSettingsDummy
+        '
+        Me.lblSettingsDummy.AutoSize = True
+        Me.lblSettingsDummy.BackColor = System.Drawing.Color.Transparent
+        Me.lblSettingsDummy.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.lblSettingsDummy.Font = New System.Drawing.Font("Microsoft MHei", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblSettingsDummy.ForeColor = System.Drawing.Color.White
+        Me.lblSettingsDummy.Location = New System.Drawing.Point(335, 635)
+        Me.lblSettingsDummy.Name = "lblSettingsDummy"
+        Me.lblSettingsDummy.Size = New System.Drawing.Size(99, 34)
+        Me.lblSettingsDummy.TabIndex = 31
+        Me.lblSettingsDummy.Text = "SETTINGS"
+        Me.lblSettingsDummy.UseCompatibleTextRendering = True
+        Me.lblSettingsDummy.Visible = False
+        '
+        'lblVersion
+        '
+        Me.lblVersion.ActiveLinkColor = System.Drawing.Color.White
+        Me.lblVersion.AutoSize = True
+        Me.lblVersion.DisabledLinkColor = System.Drawing.Color.White
+        Me.lblVersion.Font = New System.Drawing.Font("Microsoft MHei", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblVersion.ForeColor = System.Drawing.Color.White
+        Me.lblVersion.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.lblVersion.LinkColor = System.Drawing.Color.White
+        Me.lblVersion.Location = New System.Drawing.Point(191, 686)
+        Me.lblVersion.Name = "lblVersion"
+        Me.lblVersion.Size = New System.Drawing.Size(87, 22)
+        Me.lblVersion.TabIndex = 32
+        Me.lblVersion.TabStop = True
+        Me.lblVersion.Text = "Version: 1.0.1.5"
+        Me.lblVersion.UseCompatibleTextRendering = True
+        Me.lblVersion.VisitedLinkColor = System.Drawing.Color.White
         '
         'imgSettings
         '
@@ -410,6 +482,19 @@ Partial Class home
         Me.imgSavedWords.TabIndex = 8
         Me.imgSavedWords.TabStop = False
         '
+        'btnSave
+        '
+        Me.btnSave.BackColor = System.Drawing.Color.White
+        Me.btnSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.btnSave.Cursor = System.Windows.Forms.Cursors.Arrow
+        Me.btnSave.Image = Global.vopio.My.Resources.Resources.record
+        Me.btnSave.Location = New System.Drawing.Point(12, 87)
+        Me.btnSave.Name = "btnSave"
+        Me.btnSave.Size = New System.Drawing.Size(31, 30)
+        Me.btnSave.TabIndex = 2
+        Me.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.btnSave.UseVisualStyleBackColor = False
+        '
         'imgHeaderLogo
         '
         Me.imgHeaderLogo.BackColor = System.Drawing.Color.White
@@ -424,70 +509,6 @@ Partial Class home
         Me.imgHeaderLogo.TabIndex = 0
         Me.imgHeaderLogo.TabStop = False
         '
-        'lblSettingsDummy
-        '
-        Me.lblSettingsDummy.AutoSize = True
-        Me.lblSettingsDummy.BackColor = System.Drawing.Color.Transparent
-        Me.lblSettingsDummy.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.lblSettingsDummy.Font = New System.Drawing.Font("Microsoft MHei", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSettingsDummy.ForeColor = System.Drawing.Color.White
-        Me.lblSettingsDummy.Location = New System.Drawing.Point(335, 635)
-        Me.lblSettingsDummy.Name = "lblSettingsDummy"
-        Me.lblSettingsDummy.Size = New System.Drawing.Size(99, 34)
-        Me.lblSettingsDummy.TabIndex = 31
-        Me.lblSettingsDummy.Text = "SETTINGS"
-        Me.lblSettingsDummy.UseCompatibleTextRendering = True
-        Me.lblSettingsDummy.Visible = False
-        '
-        'btnShowInFolder
-        '
-        Me.btnShowInFolder.Font = New System.Drawing.Font("Arial Narrow", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnShowInFolder.Location = New System.Drawing.Point(364, 135)
-        Me.btnShowInFolder.Name = "btnShowInFolder"
-        Me.btnShowInFolder.Size = New System.Drawing.Size(73, 48)
-        Me.btnShowInFolder.TabIndex = 32
-        Me.btnShowInFolder.Text = "Show in Folder"
-        Me.btnShowInFolder.UseCompatibleTextRendering = True
-        Me.btnShowInFolder.UseVisualStyleBackColor = True
-        Me.btnShowInFolder.Visible = False
-        '
-        'btnAddNotes
-        '
-        Me.btnAddNotes.Font = New System.Drawing.Font("Arial Narrow", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnAddNotes.Location = New System.Drawing.Point(365, 18)
-        Me.btnAddNotes.Name = "btnAddNotes"
-        Me.btnAddNotes.Size = New System.Drawing.Size(73, 48)
-        Me.btnAddNotes.TabIndex = 33
-        Me.btnAddNotes.Text = "Add Notes"
-        Me.btnAddNotes.UseCompatibleTextRendering = True
-        Me.btnAddNotes.UseVisualStyleBackColor = True
-        Me.btnAddNotes.Visible = False
-        '
-        'btnSave
-        '
-        Me.btnSave.BackColor = System.Drawing.Color.White
-        Me.btnSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.btnSave.Cursor = System.Windows.Forms.Cursors.Arrow
-        Me.btnSave.Image = Global.vopio.My.Resources.Resources.record
-        Me.btnSave.Location = New System.Drawing.Point(12, 87)
-        Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(31, 30)
-        Me.btnSave.TabIndex = 2
-        Me.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me.btnSave.UseVisualStyleBackColor = False
-        '
-        'btnOpenNotes
-        '
-        Me.btnOpenNotes.Font = New System.Drawing.Font("Arial Narrow", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnOpenNotes.Location = New System.Drawing.Point(363, 79)
-        Me.btnOpenNotes.Name = "btnOpenNotes"
-        Me.btnOpenNotes.Size = New System.Drawing.Size(73, 48)
-        Me.btnOpenNotes.TabIndex = 34
-        Me.btnOpenNotes.Text = "Open Notes"
-        Me.btnOpenNotes.UseCompatibleTextRendering = True
-        Me.btnOpenNotes.UseVisualStyleBackColor = True
-        Me.btnOpenNotes.Visible = False
-        '
         'home
         '
         Me.AllowDrop = True
@@ -495,6 +516,7 @@ Partial Class home
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.MenuHighlight
         Me.ClientSize = New System.Drawing.Size(464, 712)
+        Me.Controls.Add(Me.lblVersion)
         Me.Controls.Add(Me.lblSettingsDummy)
         Me.Controls.Add(Me.lblHomeRec)
         Me.Controls.Add(Me.btnSaveNow)
@@ -522,8 +544,11 @@ Partial Class home
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.KeyPreview = True
+        Me.MaximizeBox = False
         Me.Name = "home"
         Me.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "vopio  |  always learning "
         CType(Me.trackRecordingLength, System.ComponentModel.ISupportInitialize).EndInit()
         Me.bodyPanel.ResumeLayout(False)
@@ -562,7 +587,6 @@ Partial Class home
     Friend WithEvents txtStorePath As System.Windows.Forms.TextBox
     Friend WithEvents progressRecording As System.Windows.Forms.ProgressBar
     Private WithEvents btnSaveNow As System.Windows.Forms.Button
-    Friend WithEvents imgBody As System.Windows.Forms.PictureBox
     Friend WithEvents lblHomeRec As System.Windows.Forms.Label
     Friend WithEvents bodyPanel As System.Windows.Forms.Panel
     Friend WithEvents lblListening As System.Windows.Forms.Label
@@ -571,5 +595,7 @@ Partial Class home
     Friend WithEvents btnAddNotes As System.Windows.Forms.Button
     Friend WithEvents btnSave As System.Windows.Forms.Button
     Friend WithEvents btnOpenNotes As System.Windows.Forms.Button
+    Friend WithEvents lblVersion As System.Windows.Forms.LinkLabel
+    Friend WithEvents imgBody As System.Windows.Forms.PictureBox
 
 End Class
