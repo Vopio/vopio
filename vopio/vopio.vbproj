@@ -26,8 +26,8 @@
     <ProductName>vopio</ProductName>
     <PublisherName>Vopio</PublisherName>
     <SuiteName>Vopio</SuiteName>
-    <ApplicationRevision>7</ApplicationRevision>
-    <ApplicationVersion>1.0.1.%2a</ApplicationVersion>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.0.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -112,8 +112,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
-    <Compile Include="MCI.vb" />
     <Compile Include="CustomFont.vb" />
+    <Compile Include="frmLoader.Designer.vb">
+      <DependentUpon>frmLoader.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmLoader.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTranscribe.Designer.vb">
+      <DependentUpon>frmTranscribe.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmTranscribe.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmAudioPlayer.Designer.vb">
       <DependentUpon>frmAudioPlayer.vb</DependentUpon>
     </Compile>
@@ -144,6 +155,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="frmLoader.resx">
+      <DependentUpon>frmLoader.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTranscribe.resx">
+      <DependentUpon>frmTranscribe.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmAudioPlayer.resx">
       <DependentUpon>frmAudioPlayer.vb</DependentUpon>
     </EmbeddedResource>

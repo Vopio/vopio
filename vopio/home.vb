@@ -33,7 +33,10 @@ Public Class home
     'Implementing the automatic publish version update
     Public Function GetAppVersion() As String
         ''Return ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString
-        Return "Version: " + My.Application.Deployment.CurrentVersion.ToString
+        If My.Application.IsNetworkDeployed() Then
+            Return "Version: " + My.Application.Deployment.CurrentVersion.ToString
+        End If
+
     End Function
 
     Dim storePathTest As String
@@ -105,6 +108,17 @@ ByVal lpszShortPath As String, ByVal cchBuffer As Long) As Long
 
 
     End Sub
+
+    ' Implementing Assembla # 64 Saved Words: Improve Audio Transcription Ability
+    ' Using Google Speech API to convert to text
+    ' Using flac.exe frontline commandline program to convert .wav to .flac
+    ' Sending the .flac file to the server, getting a json back
+    ' Modifying the json to extract the transcribed text
+
+    Private Sub createTranscribeConfig()
+        appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
+        My.Computer.FileSystem.CreateDirectory(appDataPath + "\vopio\config\transcribe")
+    End Sub
  
     Public Sub configureApp()
         appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
@@ -127,7 +141,17 @@ ByVal lpszShortPath As String, ByVal cchBuffer As Long) As Long
             getFontFile()
         End If
 
+        ' Implementing Assembla # 64 Saved Words: Improve Audio Transcription Ability
+        ' Using Google Speech API to convert to text
+        ' Using flac.exe frontline commandline program to convert .wav to .flac
+        ' Sending the .flac file to the server, getting a json back
+        ' Modifying the json to extract the transcribed text
 
+        If My.Computer.FileSystem.DirectoryExists(appDataPath + "\vopio\config\transcribe") Then
+            'MsgBox(appDataPath)
+        Else
+            createTranscribeConfig() ' so that users dont have to update their config files to update flac files
+        End If
 
         'Automatic Key press assembla # 53
         RegisterHotKey(Me.Handle, 100, MOD_CTRL, Keys.S)
@@ -154,7 +178,8 @@ ByVal lpszShortPath As String, ByVal cchBuffer As Long) As Long
 
         Timer1.Interval = 1000
         Timer1.Start()
-        recognizer.LoadGrammar(gram)
+        'recognizer.LoadGrammar(gram)
+
         progressRecording.Maximum = txtRecordLength.Text
         progressRecording.Minimum = 0
         trackRecordingLength.Value = txtRecordLength.Text ' Fixing osTicket # 626423
@@ -938,14 +963,27 @@ ByVal lpszShortPath As String, ByVal cchBuffer As Long) As Long
             currentAudio = finalStorePath + currentFile
             Dim audioDuration As String
             audioDuration = frmAudioPlayer.getAudioDuration(currentAudio)
+            'MsgBox(audioDuration)
             Dim audioDurationValue As Double
             audioDurationValue = CDbl(audioDuration)
-
+            Dim index = listRecordings.SelectedIndex
             If audioDuration < 2 Then
                 MsgBox("Sorry cant transcribe less than 2 seconds snippet!")
             Else
-                recognizer.SetInputToWaveFile(currentAudio)
-                recognizer.RecognizeAsync(Recognition.RecognizeMode.Multiple)
+                'MsgBox("Transcribing.....")
+                'recognizer.LoadGrammar(gram)
+                'recognizer.SetInputToWaveFile(currentAudio)
+                'recognizer.RecognizeAsync(Recognition.RecognizeMode.Multiple)
+                'recognizer.UnloadGrammar(gram)
+                'home_Load(Me, New System.EventArgs)
+                'DisplaySavedWords()
+                'listRecordings.SelectedIndex = index
+
+                frmTranscribe.inputWavFile = currentAudio
+                frmTranscribe.nameFile = currentFile
+                frmTranscribe.Show()
+
+
             End If
         End If
 
@@ -953,7 +991,8 @@ ByVal lpszShortPath As String, ByVal cchBuffer As Long) As Long
 
     Public Sub GotSpeech(ByVal sender As Object, ByVal phrase As System.Speech.Recognition.SpeechRecognizedEventArgs) Handles recognizer.SpeechRecognized
         MsgBox(phrase.Result.Text)
-        recognizer.Dispose() 'So that the file is release from the memory to be able to be deleted from the btnDelete
+        'MsgBox("Sorry cant transcribe less than 2 seconds snippet!")
+        'recognizer.Dispose() 'So that the file is release from the memory to be able to be deleted from the btnDelete
     End Sub
 
 
@@ -1104,6 +1143,18 @@ ByVal lpszShortPath As String, ByVal cchBuffer As Long) As Long
 
 
     End Sub
+    Function CheckForAlphaCharacters(ByVal StringToCheck As String)
+
+
+        For i = 0 To StringToCheck.Length - 1
+            If Char.IsLetter(StringToCheck.Chars(i)) Then
+                Return True
+            End If
+        Next
+
+        Return False
+
+    End Function
     Private Sub SaveAudio()
         ' Fixing Ticket # 640586
         counter += 1
@@ -1120,28 +1171,41 @@ ByVal lpszShortPath As String, ByVal cchBuffer As Long) As Long
         Dim mydate As String = String.Format(Now.ToString("MMddyyyy_hhmmss"))
         mciSendString("save recsound " & """" & finalStorePath + mydate + ".wav" & """", "", 0, 0)
         mciSendString("close recsound", "", 0, 0)
+
+        ' Putting them here moving from bottom because doesnt work
+        countRecord = 0
+        recordingRefresh = txtRecordLength.Text
+
+
         'MsgBox("File Created: " + finalStorePath + mydate + ".wav", MsgBoxStyle.OkOnly, "Success")
         ' Implementing Assembla Ticket # 26
         Dim result As Integer = MessageBox.Show("File Created: " + finalStorePath + mydate + ".wav" & vbCrLf & vbCrLf & "Would you like to rename this file?", "vopio | always learning", MessageBoxButtons.YesNoCancel)
         If result = DialogResult.Cancel Then
             'MessageBox.Show("Cancel pressed")
         ElseIf result = DialogResult.No Then
-            'MessageBox.Show("No pressed") ' fixing osTicket # 271511
+            'MessageBox.Show("No pressed") 'fixing osTicket # 271511
         ElseIf result = DialogResult.Yes Then
             Dim Value As String
             Value = InputBox("Enter a Name for this Audio Snippet:") + ".wav"
-            Dim oldValue As String = finalStorePath + mydate + ".wav"
-            Dim storePathFormatted As String = """" & finalStorePath & """" ' fxing rename issues osTicket # 597985 Renaming files does not work
-            Dim newValue As String = Value
-            MsgBox(oldValue + " " + newValue)
-            My.Computer.FileSystem.RenameFile(finalStorePath + mydate + ".wav", newValue)
+            If CheckForAlphaCharacters(Value) Then
+                'do stuff here if it contains letters
+                Dim oldValue As String = finalStorePath + mydate + ".wav"
+                Dim storePathFormatted As String = """" & finalStorePath & """" ' fxing rename issues osTicket # 597985 Renaming files does not work
+                Dim newValue As String = Value
+                'MsgBox(oldValue + " " + newValue)
+                My.Computer.FileSystem.RenameFile(finalStorePath + mydate + ".wav", newValue)
+            Else
+                'do stuff here if it doesn't contain letters
+                MsgBox("Only letters and numbers are allowed as valid names")
+            End If
+          
         End If
-        My.Computer.Audio.Stop()
+        'My.Computer.Audio.Stop()
 
         UpdateDirectory()
 
-        recordingRefresh = txtRecordLength.Text
-        countRecord = 0
+
+
     End Sub
     Private Sub btnSaveNow_Click(sender As Object, e As EventArgs) Handles btnSaveNow.Click
         SaveAudio()
@@ -1194,6 +1258,26 @@ ByVal lpszShortPath As String, ByVal cchBuffer As Long) As Long
 
         End If
     End Sub
+    ' osTicket # 286087 Footer design issue - fixing it by linking version to a simple about us msgbox which will eventually be a seperate form itself
+    Private Sub lblVersion_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblVersion.LinkClicked
+        MsgBox("vopio is an excellent language learning tool that listens to your surroundings all the time. It is always learning the previous 1-30 seconds (or 1 to whatever length you would like). And when you feel like you want to save something that happened just now, it goes back and saves it for you. You can even press 'Ctrl + S' to save, even not vopio is not on focus and you are probably in another window. Cool, eh? Find more about us at vopio.info! Happy Always Learning!", , "vopio | About ")
+    End Sub
+
+    'Assembla # 61 Saved Words: double click to play
+    Private Sub listRecordings_DoubleClick(sender As Object, e As EventArgs) Handles listRecordings.DoubleClick
+        Dim currentFile As String = listRecordings.SelectedItem.ToString
+        Dim audioPath As String
+        audioPath = finalStorePath + currentFile
+
+        ' Assembla # 46 Special Audio Player
+        frmAudioPlayer.Close()
+        frmAudioPlayer.audioName = currentFile
+        frmAudioPlayer.audioFile = audioPath
+        frmAudioPlayer.Show()
+    End Sub
+
+ 
+ 
 End Class
 
 

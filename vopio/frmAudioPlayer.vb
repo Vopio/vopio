@@ -23,9 +23,14 @@ Public Class frmAudioPlayer
     End Sub
 
     Friend Function getAudioDuration(sPath As String)
-        AxWindowsMediaPlayer1.URL = sPath
-        Dim mediaLength As String = AxWindowsMediaPlayer1.currentMedia.durationString.ToString()
-        Return mediaLength
+        Dim mediaLength As String
+        Dim w As New WMPLib.WindowsMediaPlayer
+        Dim m As WMPLib.IWMPMedia = w.newMedia(sPath)
+        If m IsNot Nothing Then
+            mediaLength = m.duration
+            Return mediaLength
+            w.close()
+        End If
     End Function
 
 End Class
